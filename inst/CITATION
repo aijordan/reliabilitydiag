@@ -1,0 +1,12 @@
+citHeader("To cite RelDiag in publications use:")
+
+bibentry(
+  bibtype    = "Unpublished",
+  title    = "Evaluating probabilistic classifiers: Reliability
+diagrams and score decompositions revisited",
+  author   = c(person("Timo", "Dimitriadis"),
+               person("Tilmann", "Gneiting"),
+               person(c("Alexander", "I."), "Jordan")),
+  year     = "2020",
+  note     = "available nowhere"
+)
