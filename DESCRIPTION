@@ -1,4 +1,4 @@
-Package: RelDiag
+Package: reliabilitydiag
 Title: plot reliability diagrams based on PAVA binning 
 Version: 0.1.0
 Authors@R: c(
