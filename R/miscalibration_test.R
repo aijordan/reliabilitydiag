@@ -18,8 +18,6 @@ NULL
 
 #' @rdname miscalibration_test
 #'
-
-#'
 #' @export
 miscalibration_test <- function(x, ...) {
   UseMethod("miscalibration_test")
