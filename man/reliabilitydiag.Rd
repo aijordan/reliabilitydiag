@@ -24,7 +24,8 @@ reliabilitydiag0(y)
 \arguments{
 \item{...}{objects to be coerced to \code{'reliabilitydiag'} and concatenated}
 
-\item{y}{a numeric vector of binary response values in \{0, 1\} to be predicted.}
+\item{y}{a numeric vector of binary response values in \{0, 1\} to be
+predicted.}
 
 \item{r}{an object inheriting from the class \code{'reliabilitydiag'};
 alternative to \code{y}.}

@@ -58,12 +58,13 @@ is.reliabilitydiag(x)
 )
 }
 \arguments{
-\item{x}{an \R object with probability predictions taking values in [0, 1]; usually
-a numeric vector or a list/data.frame containing numeric vectors.}
+\item{x}{an \R object with probability predictions taking values in [0, 1];
+usually a numeric vector or a list/data.frame containing numeric vectors.}
 
 \item{...}{further arguments to be passed to or from methods.}
 
-\item{y}{a numeric vector of binary response values in \{0, 1\} to be predicted.}
+\item{y}{a numeric vector of binary response values in \{0, 1\} to be
+predicted.}
 
 \item{r}{an object inheriting from the class \code{'reliabilitydiag'};
 alternative to \code{y}.}

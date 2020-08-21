@@ -6,9 +6,10 @@
 #' In the default version, the user specifies all relevant information
 #' (forecasts, realizations, information on the type of forecast) manually.
 #'
-#' @param x an \R object with probability predictions taking values in [0, 1]; usually
-#' a numeric vector or a list/data.frame containing numeric vectors.
-#' @param y a numeric vector of binary response values in \{0, 1\} to be predicted.
+#' @param x an \R object with probability predictions taking values in [0, 1];
+#' usually a numeric vector or a list/data.frame containing numeric vectors.
+#' @param y a numeric vector of binary response values in \{0, 1\} to be
+#' predicted.
 #' @param r an object inheriting from the class \code{'reliabilitydiag'};
 #' alternative to \code{y}.
 #' @param xnames a character vector of prediction names.
