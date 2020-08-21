@@ -201,25 +201,22 @@ as.reliabilitydiag.numeric <- function(x, y = NULL, r = NULL,
   df_pav <- with(
     pav_result,
     tibble::tibble(
+      case_id = if (isOrd) seq_len(length(y)) else ord,
       x = if (isOrd) x else x[ord],
       y = if (isOrd) y else y[ord],
       CEP_pav = yf,
-      bin_id = iKnots[!duplicated(yf[iKnots], fromLast = TRUE)] %>%
-        (function(k) seq_along(k) %>% rep.int(times = diff(c(0, k))))
+      bin_id = rep.int(seq_along(iKnots), times = diff(c(0, iKnots)))
     )
   )
   df_bins <- with(
     pav_result,
     tibble::tibble(
-      knots = iKnots[!duplicated(yf[iKnots], fromLast = TRUE)],
-      bin_id = seq_along(.data$knots),
-      n = diff(c(0, .data$knots)),
-      x_min = df_pav$x[c(0, utils::head(.data$knots, -1)) + 1],
-      x_max = df_pav$x[.data$knots],
-      CEP_pav = df_pav$CEP_pav[.data$knots]
-    )
-  ) %>%
-    dplyr::select(-.data$knots)
+      bin_id = seq_along(iKnots),
+      n = diff(c(0, iKnots)),
+      x_min = df_pav$x[c(0, utils::head(iKnots, -1)) + 1],
+      x_max = df_pav$x[iKnots],
+      CEP_pav = df_pav$CEP_pav[iKnots]
+    ))
 
   regions <- if (is.na(region.level)) {
     tibble::tibble(
