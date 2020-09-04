@@ -88,6 +88,8 @@ coercion methods described in \code{\link{as.reliabilitydiag}}.
 from the response values.
 }
 \examples{
+set.seed(42)
+
 X <- runif(100)
 Y <- rbinom(100, 1, X)
 r <- reliabilitydiag(X, y = Y)

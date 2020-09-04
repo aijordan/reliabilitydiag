@@ -54,6 +54,8 @@ same observations. Other objects are coerced by \code{\link{as.reliabilitydiag}}
 before combination.
 }
 \examples{
+set.seed(42)
+
 X <- runif(100)
 Y <- rbinom(100, 1, X)
 r0 <- reliabilitydiag0(Y)

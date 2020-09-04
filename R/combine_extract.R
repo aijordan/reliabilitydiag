@@ -13,6 +13,8 @@
 #' @seealso \code{\link{as.reliabilitydiag}}, \code{\link{[.reliabilitydiag}}.
 #'
 #' @examples
+#' set.seed(42)
+#'
 #' X <- runif(100)
 #' Y <- rbinom(100, 1, X)
 #' r0 <- reliabilitydiag0(Y)
@@ -65,6 +67,8 @@ c.reliabilitydiag <- function(
 #' @seealso \code{\link{c.reliabilitydiag}}.
 #'
 #' @examples
+#' set.seed(42)
+#'
 #' X1 <- runif(100)
 #' X2 <- runif(100)
 #' Y <- rbinom(100, 1, X1)

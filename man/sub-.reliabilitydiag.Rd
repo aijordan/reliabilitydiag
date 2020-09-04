@@ -18,6 +18,8 @@ an object inheriting from the class \code{'reliabilitydiag'}.
 Subsetting reliability diagram objects
 }
 \examples{
+set.seed(42)
+
 X1 <- runif(100)
 X2 <- runif(100)
 Y <- rbinom(100, 1, X1)
