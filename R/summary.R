@@ -4,6 +4,8 @@
 #' predictive performance, miscalibration, discrimination,
 #' and uncertainty.
 #'
+#' \emph{This page requires additional citations.}
+#'
 #' Predictive performance is measured by the mean score of the original
 #' forecast values, denoted by \eqn{S}.
 #'
@@ -23,9 +25,15 @@
 #'
 #' These measures are related by the following equation,
 #' \deqn{S = MCB - DSC + UNC.}
-#' Score decompositions of this type have been studied extensively, but the
-#' optimality of the PAV solution ensures that \eqn{MCB} is nonnegative.
-#' This is a unique property achieved by choosing PAV-recalibration.
+#' Score decompositions of this type have been studied extensively (INSERT CITATION), but the
+#' optimality of the PAV solution ensures that \eqn{MCB} is nonnegative,
+#' regardless of the chosen (admissible) scoring function.
+#' This is a unique property achieved by choosing PAV-recalibration (INSERT CITATION).
+#'
+#' If deviating from the Brier score as performance metric, make sure to choose
+#' a proper scoring rule for binary events (INSERT CITATION), or equivalently,
+#' a scoring function with outcome space \{0, 1\} that is consistent for the
+#' expectation functional (INSERT CITATION).
 #'
 #' @param object an object inheriting from the class \code{'reliabilitydiag'}.
 #' @param ... further arguments to be passed to or from methods.
@@ -37,7 +45,8 @@
 #' tibble (see \code{\link{tibble::tibble()}}) with columns:
 #' \tabular{ll}{
 #'    \code{forecast} \tab the name of the prediction method.\cr
-#'    \code{mean_score} \tab the empirical average \code{score}.\cr
+#'    \code{mean_score} \tab the mean score of the original
+#'      forecast values.\cr
 #'    \code{miscalibration} \tab a measure of miscalibration
 #'      (\emph{how reliable is the prediction method?}),
 #'       smaller is better.\cr
