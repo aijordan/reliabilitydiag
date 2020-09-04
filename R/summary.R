@@ -1,8 +1,52 @@
-#' Summary of reliability diagram objects
+#' Summarizing reliability diagrams
+#'
+#' A summary of a reliability diagram in terms of quantitative measures of
+#' predictive performance, miscalibration, discrimination,
+#' and uncertainty.
+#'
+#' Predictive performance is measured by the mean score of the original
+#' forecast values, denoted by \eqn{S}.
+#'
+#' Uncertainty, denoted by \eqn{UNC}, is the mean score of a constant
+#' prediction at the value of the average observation.
+#' It is the highest possible mean score of a calibrated prediction method.
+#'
+#' Discrimination, denoted by \eqn{DSC}, is \eqn{UNC} minus the mean score
+#' of the PAV-recalibrated forecast values.
+#' A small value indicates a low information content (low signal) in the
+#' original forecast values.
+#'
+#' Miscalibration, denoted by \eqn{MCB}, is \eqn{S} minus the mean score
+#' of the PAV-recalibrated forecast values.
+#' A high value indicates that predictive performance of the prediction method
+#' can be improved by recalibration.
+#'
+#' These measures are related by the following equation,
+#' \deqn{S = MCB - DSC + UNC.}
+#' Score decompositions of this type have been studied extensively, but the
+#' optimality of the PAV solution ensures that \eqn{MCB} is nonnegative.
+#' This is a unique property achieved by choosing PAV-recalibration.
 #'
 #' @param object an object inheriting from the class \code{'reliabilitydiag'}.
 #' @param ... further arguments to be passed to or from methods.
-#' @param score currently only "brier"
+#' @param score currently only "brier" or a vectorized scoring function,
+#' that is, \code{function(observation, prediction)}.
+#'
+#' @return
+#' A \code{'summary.reliability'} object, which is also a
+#' tibble (see \code{\link{tibble::tibble()}}) with columns:
+#' \tabular{ll}{
+#'    \code{forecast} \tab the name of the prediction method.\cr
+#'    \code{mean_score} \tab the empirical average \code{score}.\cr
+#'    \code{miscalibration} \tab a measure of miscalibration
+#'      (\emph{how reliable is the prediction method?}),
+#'       smaller is better.\cr
+#'    \code{discrimination} \tab a measure of discrimination
+#'      (\emph{how variable are the recalibrated predictions?}),
+#'      larger is better.\cr
+#'    \code{uncertainty} \tab the mean score of a constant prediction at the
+#'      value of the average observation.
+#'  }
 #'
 #' @export
 summary.reliabilitydiag <- function(object, ..., score = "brier") {
