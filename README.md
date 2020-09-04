@@ -19,3 +19,22 @@ score decomposition that generalizes to any proper scoring rule.
 # Install development version from GitHub
 devtools::install_github("aijordan/reliabilitydiag")
 ```
+
+## Example
+
+``` r
+library(reliabilitydiag)
+
+set.seed(42)
+X <- runif(100)
+Y <- rbinom(100, 1, X)
+reliabilitydiag(X, y = Y)
+```
+
+![](man/figures/README-example-1.png)<!-- -->
+
+    #> 'brier' score decomposition (see also ?summary.reliabilitydiag)
+    #> # A tibble: 1 x 5
+    #>   forecast mean_score miscalibration discrimination uncertainty
+    #>   <chr>         <dbl>          <dbl>          <dbl>       <dbl>
+    #> 1 X             0.153         0.0242          0.120       0.249

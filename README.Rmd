@@ -5,7 +5,8 @@ output: github_document
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -21,3 +22,15 @@ CORP is based on non-parametric isotonic regression and implemented via the Pool
 # Install development version from GitHub
 devtools::install_github("aijordan/reliabilitydiag")
 ```
+
+## Example
+
+```{r example}
+library(reliabilitydiag)
+
+set.seed(42)
+X <- runif(100)
+Y <- rbinom(100, 1, X)
+reliabilitydiag(X, y = Y)
+```
+
