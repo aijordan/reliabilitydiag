@@ -197,27 +197,80 @@ around the <code>"diagonal"</code> or confidence regions around the
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>reliabilitydiag</code> returns a <code>'reliabilitydiag'</code> object,
- which is a named list-type vector class with attribute</p><table class='table'>
-<tr><td><code>y</code></td><td>a numeric vector of response values to be predicted.</td></tr>
-</table>
-<p>Each entry of a <code>'reliabilitydiag'</code> object is a list
- with the following components:</p><table class='table'>
-<tr><td><code>cases</code></td><td>a <code>'tibble'</code>.</td></tr>
-<tr><td><code>bins</code></td><td>a <code>'tibble'</code>.</td></tr>
-<tr><td><code>regions</code></td><td>a <code>'tibble'</code>.</td></tr>
-<tr><td><code>xinfo</code></td><td>a <code>'list'</code>.</td></tr>
-</table>
-
-
+ which is a named list-type vector class with the attribute
+ <code>y</code> containing the values supplied to the input argument <code>y</code>,
+ that is, the numeric vector of response values to be predicted.
+ The length is given by the number of prediction methods detected from the
+ supplied objects.</p>
 <p><code>reliabilitydiag0</code> returns an empty <code>'reliabilitydiag'</code> object
  with attribute <code>y</code>.</p>
+<p>Each entry of a <code>'reliabilitydiag'</code> object
+ (corresponding to a single prediction method)
+ is itself a list with the following entries</p><table class='table'>
+<tr><td><code>cases</code></td><td>a tibble of all predictions and observations, enhanced
+     with PAV-recalibration output.</td></tr>
+<tr><td><code>bins</code></td><td>a tibble of the characteristics of the PAV induced bins.</td></tr>
+<tr><td><code>regions</code></td><td>a tibble with lower and upper bounds of the pointwise
+     consistency/confidence regions.</td></tr>
+<tr><td><code>xinfo</code></td><td>a list of characteristics of <code>x</code>.</td></tr>
+</table>
+
+
+<p>Each <code>cases</code> tibble is arranged in increasing order of <code>x</code> and
+ has columns</p><table class='table'>
+<tr><td><code>case_id</code></td><td>an ID based on the original order of the predictions
+     and observations.</td></tr>
+<tr><td><code>x</code></td><td>an original prediction (increasing order).</td></tr>
+<tr><td><code>y</code></td><td>an observation, corresponding to <code>x</code>.</td></tr>
+<tr><td><code>CEP_pav</code></td><td>the PAV-recalibrated prediction.</td></tr>
+<tr><td><code>bin_id</code></td><td>an ID based on the unique values of <code>CEP_pav</code>.</td></tr>
+</table>
+
+
+<p>Each <code>bins</code> tibble is a summarized version of <code>cases</code> with
+ columns</p><table class='table'>
+<tr><td><code>bin_id</code></td><td>as in <code>cases</code>, with any ID only appearing
+     once.</td></tr>
+<tr><td><code>n</code></td><td>the number of predictions with a given <code>bin_id</code>.</td></tr>
+<tr><td><code>x_min</code></td><td>the smallest value of the predictions with the given
+     <code>bin_id</code>.</td></tr>
+<tr><td><code>x_max</code></td><td>the largest value of the predictions with the given
+     <code>bin_id</code>.</td></tr>
+<tr><td><code>CEP_pav</code></td><td>the unique PAV-recalibrated prediction
+     corresponding to <code>bin_id</code>.</td></tr>
+</table>
+
+
+<p>Each <code>regions</code> tibble has columns</p><table class='table'>
+<tr><td><code>x</code></td><td>an original prediction, with any value only appearing
+     once.</td></tr>
+<tr><td><code>lower</code></td><td>the lower bound of the consistency/confidence
+     region at <code>x</code>.</td></tr>
+<tr><td><code>upper</code></td><td>the upper bound of the consistency/confidence
+     region <code>x</code>.</td></tr>
+<tr><td><code>n</code></td><td>the number of predictions with a value of <code>x</code>.</td></tr>
+<tr><td><code>level</code></td><td>the level of the consistency/confidence regions.</td></tr>
+<tr><td><code>method</code></td><td>the method used to calculate the
+     consistency/confidence region.</td></tr>
+<tr><td><code>position</code></td><td><code>"diagonal"</code> for a consistency region, and
+     <code>"estimate"</code> for a confidence region.</td></tr>
+</table>
+
+
+<p>Each <code>xinfo</code> list has entries</p><table class='table'>
+<tr><td><code>type</code></td><td>the type of predictions, either <code>"discrete"</code>
+       or <code>"continuous"</code>.</td></tr>
+<tr><td><code>values</code></td><td>the values supplied to <code>xvalues</code>.</td></tr>
+</table>
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>reliabilitydiag</code> constructs and returns an object inheriting from the
-class <code>'reliabilitydiag'</code>. It calls the
-concatenation function described in <code><a href='c.reliabilitydiag.html'>c.reliabilitydiag</a></code>, which
-in turn calls the
-coercion methods described in <code><a href='as.reliabilitydiag.html'>as.reliabilitydiag</a></code>.</p>
+class <code>'reliabilitydiag'</code>.
+Each object passed via <code>...</code> is
+coerced by the methods described in <code><a href='as.reliabilitydiag.html'>as.reliabilitydiag</a></code>,
+and then concatenated by <code><a href='c.reliabilitydiag.html'>c.reliabilitydiag</a></code>.</p>
 <p><code>reliabilitydiag0</code> constructs an empty <code>'reliabilitydiag'</code> object
 from the response values.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -227,21 +280,23 @@ from the response values.</p>
  <code><a href='plot.reliabilitydiag.html'>plot.reliabilitydiag</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>42</span>)
+
+<span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>)
 <span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='fl'>100</span>, <span class='fl'>1</span>, <span class='no'>X</span>)
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>reliabilitydiag</span>(<span class='no'>X</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Y</span>)
 <span class='no'>r</span></div><div class='img'><img src='reliabilitydiag-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 'brier' score decomposition (see also ?summary.reliabilitydiag)
-#&gt; # A tibble: 1 x 5
+#&gt; <span style='color: #555555;'># A tibble: 1 x 5</span><span>
 #&gt;   forecast mean_score miscalibration discrimination uncertainty
-#&gt;   &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;
-#&gt; 1 X             0.170         0.0229         0.0908       0.238</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> X             0.153         0.024</span><span style='text-decoration: underline;'>2</span><span>          0.120       0.249</div><div class='input'>
 <span class='no'>r0</span> <span class='kw'>&lt;-</span> <span class='fu'>reliabilitydiag0</span>(<span class='no'>Y</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>r</span>, <span class='fu'>reliabilitydiag</span>(<span class='no'>X</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='no'>r0</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 <span class='no'>X2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>)
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>reliabilitydiag</span>(<span class='no'>X2</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='no'>r</span>)
 <span class='no'>r2</span> <span class='kw'>&lt;-</span> <span class='fu'>reliabilitydiag</span>(<span class='no'>X2</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='no'>r0</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>r1</span>, <span class='no'>r2</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summary of reliability diagram objects — summary.reliabilitydiag • reliabilitydiag</title>
+<title>Summarizing reliability diagrams — summary.reliabilitydiag • reliabilitydiag</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Summary of reliability diagram objects — summary.reliabilitydiag" />
-<meta property="og:description" content="Summary of reliability diagram objects" />
+<meta property="og:title" content="Summarizing reliability diagrams — summary.reliabilitydiag" />
+<meta property="og:description" content="A summary of a reliability diagram in terms of quantitative measures of
+predictive performance, miscalibration, discrimination,
+and uncertainty." />
 
 
 
@@ -108,13 +110,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summary of reliability diagram objects</h1>
+    <h1>Summarizing reliability diagrams</h1>
     <small class="dont-index">Source: <a href='https://github.com/aijordan/reliabilitydiag/blob/master/R/summary.R'><code>R/summary.R</code></a></small>
     <div class="hidden name"><code>summary.reliabilitydiag.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Summary of reliability diagram objects</p>
+    <p>A summary of a reliability diagram in terms of quantitative measures of
+predictive performance, miscalibration, discrimination,
+and uncertainty.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for reliabilitydiag</span>
@@ -133,10 +137,55 @@
     </tr>
     <tr>
       <th>score</th>
-      <td><p>currently only "brier"</p></td>
+      <td><p>currently only "brier" or a vectorized scoring function,
+that is, <code>function(observation, prediction)</code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>'summary.reliability'</code> object, which is also a
+tibble (see <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code>) with columns:</p><table class='table'>
+<tr><td><code>forecast</code></td><td>the name of the prediction method.</td></tr>
+<tr><td><code>mean_score</code></td><td>the mean score of the original
+     forecast values.</td></tr>
+<tr><td><code>miscalibration</code></td><td>a measure of miscalibration
+     (<em>how reliable is the prediction method?</em>),
+      smaller is better.</td></tr>
+<tr><td><code>discrimination</code></td><td>a measure of discrimination
+     (<em>how variable are the recalibrated predictions?</em>),
+     larger is better.</td></tr>
+<tr><td><code>uncertainty</code></td><td>the mean score of a constant prediction at the
+     value of the average observation.</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><em>This page requires additional citations.</em></p>
+<p>Predictive performance is measured by the mean score of the original
+forecast values, denoted by \(S\).</p>
+<p>Uncertainty, denoted by \(UNC\), is the mean score of a constant
+prediction at the value of the average observation.
+It is the highest possible mean score of a calibrated prediction method.</p>
+<p>Discrimination, denoted by \(DSC\), is \(UNC\) minus the mean score
+of the PAV-recalibrated forecast values.
+A small value indicates a low information content (low signal) in the
+original forecast values.</p>
+<p>Miscalibration, denoted by \(MCB\), is \(S\) minus the mean score
+of the PAV-recalibrated forecast values.
+A high value indicates that predictive performance of the prediction method
+can be improved by recalibration.</p>
+<p>These measures are related by the following equation,
+$$S = MCB - DSC + UNC.$$
+Score decompositions of this type have been studied extensively (INSERT CITATION), but the
+optimality of the PAV solution ensures that \(MCB\) is nonnegative,
+regardless of the chosen (admissible) scoring function.
+This is a unique property achieved by choosing PAV-recalibration (INSERT CITATION).</p>
+<p>If deviating from the Brier score as performance metric, make sure to choose
+a proper scoring rule for binary events (INSERT CITATION), or equivalently,
+a scoring function with outcome space {0, 1} that is consistent for the
+expectation functional (INSERT CITATION).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
