@@ -1,1 +1,24 @@
 url: https://aijordan.github.io/reliabilitydiag/
+
+development:
+  mode: auto
+
+reference:
+- title: Creating
+- contents:
+  - reliabilitydiag
+  - reliabilitydiag0
+  - as.reliabilitydiag
+  - is.reliabilitydiag
+- title: Displaying
+- contents:
+  - contains("plot")
+  - contains("print")
+  - contains("summary")
+- title: Combining and Extracting
+- contents:
+  - c.reliabilitydiag
+  - "[.reliabilitydiag"
+- title: Testing
+- contents:
+  - miscalibration_test

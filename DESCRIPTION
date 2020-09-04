@@ -5,6 +5,7 @@ Authors@R: c(
     person("Timo", "Dimitriadis", role = "aut"),
     person(c("Alexander", "I."), "Jordan", role = c("aut", "cre"), email = "alexander.jordan@h-its.org"))
 Description: plot reliability diagrams based on PAVA binning.
+URL: https://github.com/aijordan/reliabilitydiag/
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
