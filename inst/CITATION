@@ -8,5 +8,5 @@ diagrams and score decompositions revisited",
                person("Tilmann", "Gneiting"),
                person(c("Alexander", "I."), "Jordan")),
   year     = "2020",
-  note     = "available nowhere"
+  note     = "arXiv:2008.03033"
 )
