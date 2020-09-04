@@ -3,10 +3,10 @@
 #' Documentation of the \code{'reliabilitydiag'} object, and its constructors.
 #'
 #' \code{reliabilitydiag} constructs and returns an object inheriting from the
-#' class \code{'reliabilitydiag'}. It calls the
-#' concatenation function described in \code{\link{c.reliabilitydiag}}, which
-#' in turn calls the
-#' coercion methods described in \code{\link{as.reliabilitydiag}}.
+#' class \code{'reliabilitydiag'}.
+#' Each object passed via \code{...} is
+#' coerced by the methods described in \code{\link{as.reliabilitydiag}},
+#' and then concatenated by \code{\link{c.reliabilitydiag}}.
 #'
 #' \code{reliabilitydiag0} constructs an empty \code{'reliabilitydiag'} object
 #' from the response values.
@@ -16,21 +16,76 @@
 #'
 #' @return
 #'  \code{reliabilitydiag} returns a \code{'reliabilitydiag'} object,
-#'  which is a named list-type vector class with attribute
-#'  \tabular{ll}{
-#'    \code{y} \tab a numeric vector of response values to be predicted.
-#'  }
-#'  Each entry of a \code{'reliabilitydiag'} object is a list
-#'  with the following components:
-#'  \tabular{ll}{
-#'    \code{cases} \tab a \code{'tibble'}.\cr
-#'    \code{bins} \tab a \code{'tibble'}.\cr
-#'    \code{regions} \tab a \code{'tibble'}.\cr
-#'    \code{xinfo} \tab a \code{'list'}.
-#'  }
+#'  which is a named list-type vector class with the attribute
+#'  \code{y} containing the values supplied to the input argument \code{y},
+#'  that is, the numeric vector of response values to be predicted.
+#'  The length is given by the number of prediction methods detected from the
+#'  supplied objects.
 #'
 #'  \code{reliabilitydiag0} returns an empty \code{'reliabilitydiag'} object
 #'  with attribute \code{y}.
+#'
+#'  Each entry of a \code{'reliabilitydiag'} object
+#'  (corresponding to a single prediction method)
+#'  is itself a list with the following entries
+#'  \tabular{ll}{
+#'    \code{cases} \tab a tibble of all predictions and observations, enhanced
+#'      with PAV-recalibration output.\cr
+#'    \code{bins} \tab a tibble of the characteristics of the PAV induced bins.
+#'      \cr
+#'    \code{regions} \tab a tibble with lower and upper bounds of the pointwise
+#'      consistency/confidence regions.\cr
+#'    \code{xinfo} \tab a list of characteristics of \code{x}.
+#'  }
+#'
+#'  Each \code{cases} tibble is arranged in increasing order of \code{x} and
+#'  has columns
+#'  \tabular{ll}{
+#'    \code{case_id} \tab an ID based on the original order of the predictions
+#'      and observations.\cr
+#'    \code{x} \tab an original prediction (increasing order).\cr
+#'    \code{y} \tab an observation, corresponding to \code{x}.\cr
+#'    \code{CEP_pav} \tab the PAV-recalibrated prediction.\cr
+#'    \code{bin_id} \tab an ID based on the unique values of \code{CEP_pav}.
+#'  }
+#'
+#'  Each \code{bins} tibble is a summarized version of \code{cases} with
+#'  columns
+#'  \tabular{ll}{
+#'    \code{bin_id} \tab as in \code{cases}, with any ID only appearing
+#'      once.\cr
+#'    \code{n} \tab the number of predictions with a given \code{bin_id}.\cr
+#'    \code{x_min} \tab the smallest value of the predictions with the given
+#'      \code{bin_id}.\cr
+#'    \code{x_max} \tab the largest value of the predictions with the given
+#'      \code{bin_id}.\cr
+#'    \code{CEP_pav} \tab the unique PAV-recalibrated prediction
+#'      corresponding to \code{bin_id}.
+#'  }
+#'
+#'  Each \code{regions} tibble has columns
+#'  \tabular{ll}{
+#'    \code{x} \tab an original prediction, with any value only appearing
+#'      once.\cr
+#'    \code{lower} \tab the lower bound of the consistency/confidence
+#'      region at \code{x}.\cr
+#'    \code{upper} \tab the upper bound of the consistency/confidence
+#'      region \code{x}.\cr
+#'    \code{n} \tab the number of predictions with a value of \code{x}.\cr
+#'    \code{level} \tab the level of the consistency/confidence regions. \cr
+#'    \code{method} \tab the method used to calculate the
+#'      consistency/confidence region.\cr
+#'    \code{position} \tab \code{"diagonal"} for a consistency region, and
+#'      \code{"estimate"} for a confidence region.
+#'  }
+#'
+#'  Each \code{xinfo} list has entries
+#'  \tabular{ll}{
+#'    \code{type} \tab the type of predictions, either \code{"discrete"}
+#'        or \code{"continuous"}.\cr
+#'    \code{values} \tab the values supplied to \code{xvalues}.
+#'  }
+#'
 #'
 #' @seealso
 #'  \code{\link{c.reliabilitydiag}},
