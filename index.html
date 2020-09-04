@@ -62,6 +62,14 @@
 <div id="reliabilitydiag" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#reliabilitydiag" class="anchor"></a>reliabilitydiag</h1></div>
+<p>This package implements reliability diagrams via the CORP approach, which generates provably statistically Consistent, Optimally binned, and Reproducible reliability diagrams in an automated way.</p>
+<p>CORP is based on non-parametric isotonic regression and implemented via the Pool-adjacent-violators (PAV) algorithm - essentially, the CORP reliability diagram shows the graph of the PAV- (re)calibrated forecast probabilities. The CORP approach allows for uncertainty quantification via either resampling techniques or asymptotic theory, furnishes a new numerical measure of miscalibration, and provides a CORP based Brier score decomposition that generalizes to any proper scoring rule.</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># Install development version from GitHub</span>
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"aijordan/reliabilitydiag"</span>)</pre></div>
+</div>
 </div>
   </div>
 
