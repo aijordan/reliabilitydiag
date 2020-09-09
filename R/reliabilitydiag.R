@@ -29,8 +29,7 @@
 #'  (corresponding to a single prediction method)
 #'  is itself a list with the following entries
 #'  \tabular{ll}{
-#'    \code{cases} \tab a tibble of all predictions and observations, enhanced
-#'      with PAV-recalibration output.\cr
+#'    \code{cases} \tab a tibble of all predictions and observations.\cr
 #'    \code{bins} \tab a tibble of the characteristics of the PAV induced bins.
 #'      \cr
 #'    \code{regions} \tab a tibble with lower and upper bounds of the pointwise
@@ -38,18 +37,18 @@
 #'    \code{xinfo} \tab a list of characteristics of \code{x}.
 #'  }
 #'
-#'  Each \code{cases} tibble is arranged in increasing order of \code{x} and
-#'  has columns
+#'  Each \code{cases} tibble comprises the forecast-observation pairs of the
+#'  given prediction method. It is arranged in increasing order of
+#'  \code{x} and has columns
 #'  \tabular{ll}{
 #'    \code{case_id} \tab an ID based on the original order of the predictions
 #'      and observations.\cr
 #'    \code{x} \tab an original prediction (increasing order).\cr
 #'    \code{y} \tab an observation, corresponding to \code{x}.\cr
-#'    \code{CEP_pav} \tab the PAV-recalibrated prediction.\cr
-#'    \code{bin_id} \tab an ID based on the unique values of \code{CEP_pav}.
+#'    \code{bin_id} \tab an ID for the PAV-recalibration induced bins.
 #'  }
 #'
-#'  Each \code{bins} tibble is a summarized version of \code{cases} with
+#'  Each \code{bins} tibble contains PAV-recalibration information, and has
 #'  columns
 #'  \tabular{ll}{
 #'    \code{bin_id} \tab as in \code{cases}, with any ID only appearing
@@ -63,7 +62,8 @@
 #'      corresponding to \code{bin_id}.
 #'  }
 #'
-#'  Each \code{regions} tibble has columns
+#'  Each \code{regions} tibble contains the uncertainty quantification
+#'  information, and has columns
 #'  \tabular{ll}{
 #'    \code{x} \tab an original prediction, with any value only appearing
 #'      once.\cr
@@ -100,13 +100,19 @@
 #' r <- reliabilitydiag(X, y = Y)
 #' r
 #'
-#' r0 <- reliabilitydiag0(Y)
-#' identical(r, reliabilitydiag(X, r = r0))
+#' # no consistency/confidence regions
+#' r1 <- reliabilitydiag(X, y = Y, region.level = NA)
+#' r1
 #'
+#' # specify predictions via existing reliabilitydiag
+#' r0 <- reliabilitydiag0(Y)
+#' identical(r1, reliabilitydiag(X, r = r0, region.level = NA))
+#'
+#' # only observation information is used from existing reliabilitydiag
 #' X2 <- runif(100)
-#' r1 <- reliabilitydiag(X2, r = r)
-#' r2 <- reliabilitydiag(X2, r = r0)
-#' identical(r1, r2)
+#' r2 <- reliabilitydiag(X2, r = r, region.level = NA)
+#' r3 <- reliabilitydiag(X2, r = r0, region.level = NA)
+#' identical(r2, r3)
 #'
 #' @name reliabilitydiag
 NULL

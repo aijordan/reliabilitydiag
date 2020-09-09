@@ -220,8 +220,8 @@ as.reliabilitydiag.numeric <- function(x, y = NULL, r = NULL,
 
   regions <- if (is.na(region.level)) {
     tibble::tibble(
-      x = NA, lower = NA, upper = NA,
-      n = NA, level = NA, method = NA, position = NA
+      x = numeric(0), lower = numeric(0), upper = numeric(0), n = integer(0),
+      method = character(0), level = numeric(0), position = character(0)
     )
   } else {
     region_method <- get(region.method)
@@ -230,7 +230,8 @@ as.reliabilitydiag.numeric <- function(x, y = NULL, r = NULL,
 
   # Outputs
   x <- list(
-    cases = dplyr::select(df_pav, .data$x, .data$y, .data$bin_id),
+    cases = dplyr::select(
+      df_pav, .data$case_id, .data$x, .data$y, .data$bin_id),
     bins = df_bins,
     regions = regions,
     xinfo = list(type = xtype, values = xvalues)
