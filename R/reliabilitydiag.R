@@ -11,6 +11,52 @@
 #' \code{reliabilitydiag0} constructs an empty \code{'reliabilitydiag'} object
 #' from the response values.
 #'
+#' If any of the arguments \code{region.level}, \code{region.method},
+#' or \code{region.position} is \code{NA}, then the uncertainty quantification
+#' in terms of consistency/confidence regions is skipped.
+#'
+#' Consistency regions are determined under the assumption of calibration of
+#' the original predictions, that is, perfectly reliable forecasts such that
+#' \eqn{P(Y = 1|X) = X}.
+#' Consistency regions are therefore positioned around values on the diagonal
+#' (set \code{region.position} to \code{"diagonal"}).
+#'
+#' For confidence regions, calibration is enforced by using the PAV-recalibrated
+#' predictions for uncertainty quantification, that is, it is assumed that
+#' \eqn{P(Y = 1|X) = PAV(X)}.
+#' Confidence regions are therefore positioned around the estimated
+#' conditional exceedence probability (CEP) line
+#' (set \code{region.position} to \code{"estimate"}).
+#'
+#' When \code{region.method} is \code{"resampling"}, then the original
+#' forecast-observations pairs are bootstrapped \code{n.boot} times.
+#' For each bootstrap sample, new observations are drawn under the respective
+#' assumption (consistency or confidence).
+#' Then PAV-recalibration with those new observations is performed on each
+#' bootstrap sample, and pointwise
+#' lower and upper bounds are calculated across the resulting CEP lines.
+#'
+#' When \code{region.method} is \code{"discrete_asymptotics"} and
+#' \code{region.position} is \code{"diagonal"},
+#' a Gaussian
+#' approximation is used assuming \eqn{\sqrt{n} * (EST(x0) - x0)} has variance
+#' \eqn{x0(1-x0)}, where
+#' \eqn{x0} is an original prediction value,
+#' \eqn{n} is the observed number of predictions with value \eqn{x0},
+#' and \eqn{EST(x0)} is the estimated CEP value at \eqn{x0}.
+#'
+#' When \code{region.method} is \code{"continuous_asymptotics"} and
+#' \code{region.position} is \code{"diagonal"},
+#' a Chernoff approximation is used for
+#' \eqn{(n * f(x0) / (4 * x0 * (1- x0)))^(1/3) * (EST(x0) - x0)},
+#' where \eqn{x0} is an original prediction value,
+#' \eqn{n} is the total number of observations,
+#' \eqn{EST(x0)} is the estimated CEP value at \eqn{x0},
+#' and \eqn{f(x0)} is the estimated value of the density of the
+#' original prediction values.
+#' This density is estimated using the \code{bde} package: We use Chen's
+#' beta kernel density estimator (see \code{\link{bde::bde}}).
+#'
 #' @param ... objects to be coerced to \code{'reliabilitydiag'} and concatenated
 #' @inheritParams as.reliabilitydiag
 #'
