@@ -60,6 +60,13 @@
 #' @export
 summary.reliabilitydiag <- function(object, ..., score = "brier") {
   r <- object
+  if (identical(length(r), 0L)) {
+    sr <- sprintf(
+      "empty reliabilitydiag: 0 prediction methods for %i observations.",
+      length(attr(r, "y")))
+    class(sr) <- c("summary.reliabilitydiag", class(sr))
+    return(sr)
+  }
   score <- rlang::enquo(score)
   sr <- decomposition(r, score = rlang::eval_tidy(score))
   attr(sr, "score")$name <- if (is.character(rlang::eval_tidy(score))) {

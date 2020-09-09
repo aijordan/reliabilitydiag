@@ -21,6 +21,10 @@ print.reliabilitydiag <- function(x, ...) {
 #'
 #' @export
 print.summary.reliabilitydiag <- function(x, ...) {
+  if (is.character(x)) {
+    cat(x)
+    return(invisible(x))
+  }
   xx <- x
   class(xx) <- class(x)[-1]
   cat(sprintf("'%s' score decomposition (see also ?summary.reliabilitydiag)\n",
