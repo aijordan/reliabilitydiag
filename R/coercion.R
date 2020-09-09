@@ -1,10 +1,8 @@
 #' Coerce to a reliability diagram
 #'
-#' generic function with
-#' a \code{default} method.
-#'
-#' In the default version, the user specifies all relevant information
-#' (forecasts, realizations, information on the type of forecast) manually.
+#' Coerce numeric vectors, data frames, or anything else that can be coerced
+#' by \code{as.data.frame()} to a data frame of prediction values, into
+#' an object inheriting from the \code{'reliabilitydiag'} class.
 #'
 #' @param x an \R object with probability predictions taking values in [0, 1];
 #' usually a numeric vector or a list/data.frame containing numeric vectors.
@@ -32,15 +30,14 @@
 #' \code{region.method == "resampling"}.
 #' @param ... further arguments to be passed to or from methods.
 #'
-#' @details
-#' some details
-#'
 #' @return
 #'  \code{as.reliabilitydiag} returns a \code{'reliabilitydiag'} object.
 #'
 #'  \code{is.reliabilitydiag} returns \code{TRUE} if its argument is a
 #'  reliability diagram, that is, has \code{"reliabilitydiag"} among its classes,
 #'  and \code{FALSE} otherwise.
+#'
+#' @seealso \code{\link{reliabilitydiag}}
 #'
 #' @name as.reliabilitydiag
 NULL
@@ -183,16 +180,23 @@ as.reliabilitydiag.numeric <- function(x, y = NULL, r = NULL,
     stopifnot(isTRUE(xtype %in% c("continuous", "discrete")))
   }
 
-  stopifnot(is.na(region.level) || isTRUE(region.level > 0 & region.level < 1))
-  stopifnot(isTRUE(region.position %in% c("diagonal", "estimate")))
-  stopifnot(isTRUE(n.boot > 0))
+  do_region <- !anyNA(list(
+    region.level, region.method, region.position), recursive = TRUE)
 
-  if (is.null(region.method)) {
-    region.method <- detect_regionmethod(x, region.position)
-  } else {
+  if (do_region) {
+    stopifnot(isTRUE(region.level > 0 & region.level < 1))
+    stopifnot(isTRUE(region.position %in% c("diagonal", "estimate")))
+    stopifnot(isTRUE(n.boot > 0))
+    if (is.null(region.method)) {
+      region.method <- detect_regionmethod(x, region.position)
+    }
     stopifnot(isTRUE(
-      region.method %in% c("continuous_asymptotics", "discrete_asymptotics",
-                         "resampling", "restricted_resampling")
+      region.method %in% c(
+        "continuous_asymptotics",
+        "discrete_asymptotics",
+        "resampling",
+        "restricted_resampling"
+      )
     ))
   }
 
@@ -218,7 +222,7 @@ as.reliabilitydiag.numeric <- function(x, y = NULL, r = NULL,
       CEP_pav = df_pav$CEP_pav[iKnots]
     ))
 
-  regions <- if (is.na(region.level)) {
+  regions <- if (!do_region) {
     tibble::tibble(
       x = numeric(0), lower = numeric(0), upper = numeric(0), n = integer(0),
       method = character(0), level = numeric(0), position = character(0)

@@ -103,13 +103,10 @@ around the \code{"diagonal"} or confidence regions around the
  and \code{FALSE} otherwise.
 }
 \description{
-generic function with
-a \code{default} method.
+Coerce numeric vectors, data frames, or anything else that can be coerced
+by \code{as.data.frame()} to a data frame of prediction values, into
+an object inheriting from the \code{'reliabilitydiag'} class.
 }
-\details{
-In the default version, the user specifies all relevant information
-(forecasts, realizations, information on the type of forecast) manually.
-
-
-some details
+\seealso{
+\code{\link{reliabilitydiag}}
 }
