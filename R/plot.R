@@ -116,6 +116,7 @@ autoplot.reliabilitydiag <- function(
             params_CEPline
           ))
     } else if (length(r) > 1L) {
+      if (missing(params_CEPline)) params_CEPline <- params_CEPline["size"]
       p.reldiag <- p.reldiag +
         do.call(
           what = ggplot2::geom_line,
