@@ -42,7 +42,7 @@
 #'
 #' @return
 #' A \code{'summary.reliability'} object, which is also a
-#' tibble (see \code{\link{tibble::tibble()}}) with columns:
+#' tibble (see \code{\link[tibble:tibble]{tibble::tibble()}}) with columns:
 #' \tabular{ll}{
 #'    \code{forecast} \tab the name of the prediction method.\cr
 #'    \code{mean_score} \tab the mean score of the original
@@ -90,8 +90,7 @@ decomposition <- function(r, score = "brier") {
     tibble::tibble(
       mean_score = with(l$cases, mean(score(y, x))),
       uncertainty = with(l$cases, mean(score(y, mean(y)))),
-      Sc = with(l, dplyr::left_join(cases, bins, by = "bin_id")) %>%
-        with(., mean(score(y, CEP_pav))),
+      Sc = with(l$cases, mean(score(y, CEP_pav))),
       discrimination = .data$uncertainty - .data$Sc,
       miscalibration = .data$mean_score - .data$Sc
     )

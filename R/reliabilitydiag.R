@@ -55,7 +55,7 @@
 #' and \eqn{f(x0)} is the estimated value of the density of the
 #' original prediction values.
 #' This density is estimated using the \code{bde} package: We use Chen's
-#' beta kernel density estimator (see \code{\link{bde::bde}}).
+#' beta kernel density estimator (see \code{\link[bde:bde]{bde::bde()}}).
 #'
 #' @param ... objects to be coerced to \code{'reliabilitydiag'} and concatenated
 #' @inheritParams as.reliabilitydiag
@@ -166,11 +166,16 @@ NULL
 #' @rdname reliabilitydiag
 #'
 #' @export
-reliabilitydiag <- function(
-  ..., y = NULL, r = NULL, tol = sqrt(.Machine$double.eps),
-  xtype = NULL, xvalues = NULL, xnames = NULL,
-  region.level = 0.9, region.method = NULL, region.position = "diagonal",
-  n.boot = 100) {
+reliabilitydiag <- function(...,
+                            y = NULL,
+                            r = NULL,
+                            tol = sqrt(.Machine$double.eps),
+                            xtype = NULL,
+                            xvalues = NULL,
+                            region.level = 0.9,
+                            region.method = NULL,
+                            region.position = "diagonal",
+                            n.boot = 100) {
 
   if (!is.null(y) && !is.null(r)) {
     stop("specify 'y' or 'r', but not both")
@@ -178,10 +183,25 @@ reliabilitydiag <- function(
   if (is.null(r)) r <- reliabilitydiag0(y)
   stopifnot(is.reliabilitydiag(r))
 
-  c(r[NULL], ..., tol = tol,
-    xtype = xtype, xvalues = xvalues, xnames = xnames,
-    region.level = region.level, region.method = region.method,
-    region.position = region.position, n.boot = n.boot)
+  if (!is.list(xtype)) xtype <- list(xtype)
+  if (!is.list(xvalues)) xvalues <- list(xvalues)
+
+  list(
+    x = list(...),
+    xtype = xtype,
+    xvalues = xvalues
+  ) %>%
+    purrr::pmap(
+      .f = as.reliabilitydiag,
+      r = r,
+      tol = tol,
+      .name_repair = "minimal",
+      region.level = region.level,
+      region.method = region.method,
+      region.position = region.position,
+      n.boot = n.boot
+    ) %>%
+    do.call(c, .)
 }
 
 #' @rdname reliabilitydiag

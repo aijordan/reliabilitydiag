@@ -16,7 +16,7 @@ that is, \code{function(observation, prediction)}.}
 }
 \value{
 A \code{'summary.reliability'} object, which is also a
-tibble (see \code{\link{tibble::tibble()}}) with columns:
+tibble (see \code{\link[tibble:tibble]{tibble::tibble()}}) with columns:
 \tabular{ll}{
    \code{forecast} \tab the name of the prediction method.\cr
    \code{mean_score} \tab the mean score of the original

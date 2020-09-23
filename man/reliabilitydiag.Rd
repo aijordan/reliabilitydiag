@@ -12,7 +12,6 @@ reliabilitydiag(
   tol = sqrt(.Machine$double.eps),
   xtype = NULL,
   xvalues = NULL,
-  xnames = NULL,
   region.level = 0.9,
   region.method = NULL,
   region.position = "diagonal",
@@ -39,8 +38,6 @@ treated as \code{"continuous"} or \code{"discrete"}.}
 \item{xvalues}{a numeric vector of possible prediction values;
 values in \code{x} are rounded to the nearest value in \code{xvalues} and
 \code{xtype} is set to \code{"discrete"}.}
-
-\item{xnames}{a character vector of prediction names.}
 
 \item{region.level}{a value in (0, 1) specifying the level at which
 consistency or confidence regions are calculated.}
@@ -185,7 +182,7 @@ where \eqn{x0} is an original prediction value,
 and \eqn{f(x0)} is the estimated value of the density of the
 original prediction values.
 This density is estimated using the \code{bde} package: We use Chen's
-beta kernel density estimator (see \code{\link{bde::bde}}).
+beta kernel density estimator (see \code{\link[bde:bde]{bde::bde()}}).
 }
 \examples{
 set.seed(42)

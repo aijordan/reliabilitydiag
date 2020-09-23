@@ -6,7 +6,6 @@
 \alias{as.reliabilitydiag.reliabilitydiag}
 \alias{as.reliabilitydiag.default}
 \alias{as.reliabilitydiag.data.frame}
-\alias{as.reliabilitydiag.numeric}
 \title{Coerce to a reliability diagram}
 \usage{
 as.reliabilitydiag(x, ...)
@@ -21,7 +20,7 @@ is.reliabilitydiag(x)
   r = NULL,
   xtype = NULL,
   xvalues = NULL,
-  xnames = NULL,
+  .name_repair = "unique",
   region.level = 0.9,
   region.method = NULL,
   region.position = "diagonal",
@@ -35,21 +34,7 @@ is.reliabilitydiag(x)
   r = NULL,
   xtype = NULL,
   xvalues = NULL,
-  xnames = NULL,
-  region.level = 0.9,
-  region.method = NULL,
-  region.position = "diagonal",
-  n.boot = 100,
-  ...
-)
-
-\method{as.reliabilitydiag}{numeric}(
-  x,
-  y = NULL,
-  r = NULL,
-  xtype = NULL,
-  xvalues = NULL,
-  xnames = NULL,
+  .name_repair = "unique",
   region.level = 0.9,
   region.method = NULL,
   region.position = "diagonal",
@@ -79,7 +64,8 @@ treated as \code{"continuous"} or \code{"discrete"}.}
 values in \code{x} are rounded to the nearest value in \code{xvalues} and
 \code{xtype} is set to \code{"discrete"}.}
 
-\item{xnames}{a character vector of prediction names.}
+\item{.name_repair}{This argument is passed on as \code{repair} to
+\code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}. See there for more details.}
 
 \item{region.level}{a value in (0, 1) specifying the level at which
 consistency or confidence regions are calculated.}

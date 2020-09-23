@@ -9,7 +9,6 @@
   tol = sqrt(.Machine$double.eps),
   xtype = NULL,
   xvalues = NULL,
-  xnames = NULL,
   region.level = 0.9,
   region.method = NULL,
   region.position = "diagonal",
@@ -28,8 +27,6 @@ treated as \code{"continuous"} or \code{"discrete"}.}
 \item{xvalues}{a numeric vector of possible prediction values;
 values in \code{x} are rounded to the nearest value in \code{xvalues} and
 \code{xtype} is set to \code{"discrete"}.}
-
-\item{xnames}{a character vector of prediction names.}
 
 \item{region.level}{a value in (0, 1) specifying the level at which
 consistency or confidence regions are calculated.}
