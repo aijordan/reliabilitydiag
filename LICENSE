@@ -1,0 +1,14 @@
+This package contains data from the European Center for Medium-Range Weather
+Forecasts (ECMWF, https://www.ecmwf.int/).
+
+The data set 'precip_Niamey_2016' ("data/precip_Niamey_2016.rda") contains
+modified historic ECMWF products, specifically:
+ensemble forecasts of precipitation that have been summarized to a
+probability of precipitation (column 'ENS'), and
+historical observations for the occurence of precipitation (column 'obs').
+These data components are governed by the
+  Creative Commons Attribution 4.0 International (CC BY 4.0)
+  https://creativecommons.org/licenses/by/4.0/
+
+The previous also applies to the corresponding data in the file
+"data-raw/Forecasts_observations_Niamey_2016.Rdata".
