@@ -1,4 +1,4 @@
-#' Printing Murphy diagram objects
+#' Printing reliability diagram objects
 #'
 #' @param x an object inheriting from the class \code{'reliabilitydiag'}.
 #' @param ... further arguments to be passed to or from methods.

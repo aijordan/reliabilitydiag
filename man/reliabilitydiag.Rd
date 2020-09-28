@@ -84,7 +84,9 @@ around the \code{"diagonal"} or confidence regions around the
      and observations.\cr
    \code{x} \tab an original prediction (increasing order).\cr
    \code{y} \tab an observation, corresponding to \code{x}.\cr
-   \code{bin_id} \tab an ID for the PAV-recalibration induced bins.
+   \code{bin_id} \tab an ID for the PAV-recalibration induced bins.\cr
+   \code{CEP_pav} \tab the unique PAV-recalibrated prediction
+     corresponding to \code{bin_id}.
  }
 
  Each \code{bins} tibble contains PAV-recalibration information, and has

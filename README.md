@@ -25,10 +25,11 @@ devtools::install_github("aijordan/reliabilitydiag")
 ``` r
 library(reliabilitydiag)
 
-set.seed(42)
-X <- runif(100)
-Y <- rbinom(100, 1, X)
-reliabilitydiag(X, y = Y)
+data("precip_Niamey_2016", package = "reliabilitydiag")
+
+X <- precip_Niamey_2016$EMOS
+Y <- precip_Niamey_2016$obs
+reliabilitydiag(EMOS = X, y = Y)
 ```
 
 ![](man/figures/README-example-1.png)<!-- -->
@@ -37,4 +38,4 @@ reliabilitydiag(X, y = Y)
     #> # A tibble: 1 x 5
     #>   forecast mean_score miscalibration discrimination uncertainty
     #>   <chr>         <dbl>          <dbl>          <dbl>       <dbl>
-    #> 1 X             0.153         0.0242          0.120       0.249
+    #> 1 EMOS          0.232         0.0183         0.0305       0.244

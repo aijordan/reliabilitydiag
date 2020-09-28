@@ -3,7 +3,7 @@
 \name{print.reliabilitydiag}
 \alias{print.reliabilitydiag}
 \alias{print.summary.reliabilitydiag}
-\title{Printing Murphy diagram objects}
+\title{Printing reliability diagram objects}
 \usage{
 \method{print}{reliabilitydiag}(x, ...)
 
@@ -15,5 +15,5 @@
 \item{...}{further arguments to be passed to or from methods.}
 }
 \description{
-Printing Murphy diagram objects
+Printing reliability diagram objects
 }

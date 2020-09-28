@@ -27,10 +27,10 @@ devtools::install_github("aijordan/reliabilitydiag")
 
 ```{r example}
 library(reliabilitydiag)
+data("precip_Niamey_2016", package = "reliabilitydiag")
 
-set.seed(42)
-X <- runif(100)
-Y <- rbinom(100, 1, X)
-reliabilitydiag(X, y = Y)
+X <- precip_Niamey_2016$EMOS
+Y <- precip_Niamey_2016$obs
+reliabilitydiag(EMOS = X, y = Y)
 ```
 
