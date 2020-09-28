@@ -135,7 +135,7 @@ an object inheriting from the <code>'reliabilitydiag'</code> class.</p>
   <span class='kw'>r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xtype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xvalues</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"unique"</span>,
   <span class='kw'>region.level</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
   <span class='kw'>region.method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>region.position</span> <span class='kw'>=</span> <span class='st'>"diagonal"</span>,
@@ -150,22 +150,7 @@ an object inheriting from the <code>'reliabilitydiag'</code> class.</p>
   <span class='kw'>r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xtype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xvalues</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>region.level</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>region.method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>region.position</span> <span class='kw'>=</span> <span class='st'>"diagonal"</span>,
-  <span class='kw'>n.boot</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='no'>...</span>
-)
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>as.reliabilitydiag</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xtype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xvalues</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"unique"</span>,
   <span class='kw'>region.level</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
   <span class='kw'>region.method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>region.position</span> <span class='kw'>=</span> <span class='st'>"diagonal"</span>,
@@ -212,8 +197,9 @@ values in <code>x</code> are rounded to the nearest value in <code>xvalues</code
 <code>xtype</code> is set to <code>"discrete"</code>.</p></td>
     </tr>
     <tr>
-      <th>xnames</th>
-      <td><p>a character vector of prediction names.</p></td>
+      <th>.name_repair</th>
+      <td><p>This argument is passed on as <code>repair</code> to
+<code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>. See there for more details.</p></td>
     </tr>
     <tr>
       <th>region.level</th>

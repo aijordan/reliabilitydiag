@@ -146,12 +146,13 @@
 <span class='no'>X1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>)
 <span class='no'>X2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>)
 <span class='no'>Y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='fl'>100</span>, <span class='fl'>1</span>, <span class='no'>X1</span>)
-<span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reliabilitydiag.html'>reliabilitydiag</a></span>(<span class='no'>X1</span>, <span class='no'>X2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Y</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>r</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='no'>r</span>[<span class='fl'>1</span>]</div><div class='img'><img src='sub-.reliabilitydiag-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 'brier' score decomposition (see also ?summary.reliabilitydiag)
+<span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reliabilitydiag.html'>reliabilitydiag</a></span>(<span class='no'>X1</span>, <span class='no'>X2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Y</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `` -&gt; ...1</span>
+#&gt; <span class='message'>* `` -&gt; ...2</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>r</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='no'>r</span>[<span class='fl'>1</span>]</div><div class='img'><img src='sub-.reliabilitydiag-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 'brier' score decomposition (see also ?summary.reliabilitydiag)
 #&gt; <span style='color: #555555;'># A tibble: 1 x 5</span><span>
 #&gt;   forecast mean_score miscalibration discrimination uncertainty
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> I1_X          0.157         0.023</span><span style='text-decoration: underline;'>2</span><span>          0.117        0.25</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> ...1          0.157         0.023</span><span style='text-decoration: underline;'>2</span><span>          0.117        0.25</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
