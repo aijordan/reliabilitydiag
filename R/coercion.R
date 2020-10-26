@@ -226,25 +226,27 @@ reldiag_numeric <- function(x,
 
   ###
   pav_result <- stats::isoreg(x, y)
+  red_iKnots <- with(
+    pav_result,
+    which(!duplicated(yf[iKnots], fromLast = TRUE)) %>% iKnots[.]
+  )
   df_pav <- with(
     pav_result,
     tibble::tibble(
       case_id = if (isOrd) seq_len(length(y)) else ord,
       x = if (isOrd) x else x[ord],
       y = if (isOrd) y else y[ord],
-      bin_id = rep.int(seq_along(iKnots), times = diff(c(0, iKnots))),
+      bin_id = rep.int(seq_along(red_iKnots), times = diff(c(0, red_iKnots))),
       CEP_pav = yf
     )
   )
-  df_bins <- with(
-    pav_result,
-    tibble::tibble(
-      bin_id = seq_along(iKnots),
-      n = diff(c(0, iKnots)),
-      x_min = df_pav$x[c(0, utils::head(iKnots, -1)) + 1],
-      x_max = df_pav$x[iKnots],
-      CEP_pav = df_pav$CEP_pav[iKnots]
-    ))
+  df_bins <- tibble::tibble(
+    bin_id = seq_along(red_iKnots),
+    n = diff(c(0, red_iKnots)),
+    x_min = df_pav$x[c(0, utils::head(red_iKnots,-1)) + 1],
+    x_max = df_pav$x[red_iKnots],
+    CEP_pav = df_pav$CEP_pav[red_iKnots]
+  )
 
   regions <- if (!do_region) {
     tibble::tibble(
