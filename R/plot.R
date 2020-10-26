@@ -165,5 +165,6 @@ autoplot.reliabilitydiag <- function(
           ))
     }
   }
-  p.reldiag
+  plot(p.reldiag)
+  invisible(p.reldiag)
 }
