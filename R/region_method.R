@@ -111,10 +111,9 @@ resampling <- function(df.pava, df_bins, region.level, region.position, n.boot, 
       ) %>%
       dplyr::distinct() %>%
       dplyr::left_join(df.CB, ., by = "x") %>%
-      tidyr::fill(.data$CEP_pav.y, .direction = "downup") %>%
-      .$CEP_pav.y
+      with(., approx(x, CEP_pav.y, xout = x)$y)
   }) %>%
-    apply(1, stats::quantile, 0.5 + c(-0.5, 0.5) * region.level) %>%
+    apply(1, stats::quantile, 0.5 + c(-0.5, 0.5) * region.level, TRUE) %>%
     (function(bounds) dplyr::mutate(
       df.CB,
       level = region.level,
