@@ -31,18 +31,26 @@ bound_correction <- function(bound, x, CEP_est, position) {
 }
 
 choose_breaks <- function(x, xtype) {
-  if (identical(xtype, "continuous")) {
-    # Use the "Freedman–Diaconis" binning rule
-    binwidth <- 2 * stats::IQR(x) / length(x)^(1 / 3)
-    xrange <- range(x)
-    round(diff(xrange) / binwidth) %>%
-      max(5) %>%
-      (function(n) seq(xrange[1L], xrange[2L], length.out = n + 1))
-  } else if (identical(xtype, "discrete")) {
-    x_unique <- sort(unique(x))
-    eps <- min(diff(x_unique) / 8, 0.02)
-    rep(x_unique, each = 2) + c(-eps, eps)
-  }
+  switch(
+    xtype,
+    continuous = breaks_fd(x),
+    discrete = breaks_discrete(x)
+  )
+}
+
+breaks_fd <- function(x) {
+  # Use the "Freedman–Diaconis" binning rule
+  binwidth <- 2 * stats::IQR(x) / length(x)^(1 / 3)
+  xrange <- range(x)
+  round(diff(xrange) / binwidth) %>%
+    max(5) %>%
+    (function(n) seq(xrange[1L], xrange[2L], length.out = n + 1))
+}
+
+breaks_discrete <- function(x) {
+  x_unique <- sort(unique(x))
+  eps <- min(diff(x_unique) / 8, 0.02)
+  rep(x_unique, each = 2) + c(-eps, eps)
 }
 
 detect_xtype <- function(x) {
