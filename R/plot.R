@@ -130,15 +130,16 @@ autoplot.reliabilitydiag <- function(
   if (is.null(params_CEPpoint)) {
     params_CEPpoint <- switch(
       type,
-      miscalibration = if (identical(length(r), 1L) &&
-                           identical(r[[1L]]$xinfo$type, "discrete") ||
-                           # ggExtra::ggMarginal requires a scatter plot
-                           !isTRUE(is.na(params_ggMarginal))) {
+      miscalibration = if (!isTRUE(is.na(params_ggMarginal))) {
+        # ggExtra::ggMarginal requires a scatter plot
+        list(colour = colour)
+      } else if (identical(length(r), 1L) &&
+                 identical(r[[1L]]$xinfo$type, "discrete")) {
         list(size = 2, colour = colour)
       } else {
         NA
       },
-      discrimination = list(size = 2, colour = "black"))
+      discrimination = list(colour = "black"))
   }
 
   # initialize plot object
