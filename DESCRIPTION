@@ -16,6 +16,7 @@ Imports:
     magrittr,
     tidyr,
     ggplot2,
+    ggExtra,
     dplyr,
     purrr,
     rlang,

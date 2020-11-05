@@ -10,13 +10,17 @@
 \method{autoplot}{reliabilitydiag}(
   object,
   ...,
+  type = c("miscalibration", "discrimination"),
   colour = "red",
-  params_histogram = list(yscale = 0.2, colour = "black", fill = NA),
-  params_ribbon = list(fill = "blue", alpha = 0.15),
-  params_diagonal = list(size = 0.3),
-  params_CEPline = list(size = 0.2, colour = colour),
-  params_CEPsegment = list(size = 2, colour = colour),
-  params_CEPpoint = list(size = 2, colour = colour, shape = 16)
+  params_histogram = NULL,
+  params_ggMarginal = NULL,
+  params_ribbon = NULL,
+  params_diagonal = NULL,
+  params_vsegment = NULL,
+  params_hsegment = NULL,
+  params_CEPline = NULL,
+  params_CEPsegment = NULL,
+  params_CEPpoint = NULL
 )
 }
 \arguments{
@@ -26,25 +30,34 @@
 
 \item{object}{an object inheriting from the class \code{'reliabilitydiag'}.}
 
-\item{colour}{a colour to be used in the CEP layers.}
+\item{type}{one of \code{"miscalibration"}, \code{"discrimination"};
+determines which
+layers are added by default, including default parameter values.}
+
+\item{colour}{a colour to be used to draw focus;
+used for the CEP layers when \code{type} is \code{"miscalibration"},
+and for the horizontal segment layer and CEP margin histogram
+when \code{type} is \code{"discrimination"}.}
 
 \item{params_histogram}{a list of arguments for
-\code{ggplot2::geom_histogram}; ignored if \code{length(x) > 1}.}
+\code{ggplot2::geom_histogram}.}
 
-\item{params_ribbon}{a list of arguments for \code{ggplot2::geom_ribbon};
-ignored if \code{length(x) > 1}.}
+\item{params_ggMarginal}{a list of arguments for \code{ggExtra::ggMarginal}.}
+
+\item{params_ribbon}{a list of arguments for \code{ggplot2::geom_ribbon}.}
 
 \item{params_diagonal}{a list of arguments for \code{ggplot2::geom_line}.}
+
+\item{params_vsegment}{a list of arguments for \code{ggplot2::geom_segment}.}
+
+\item{params_hsegment}{a list of arguments for \code{ggplot2::geom_segment}.}
 
 \item{params_CEPline}{a list of arguments for \code{ggplot2::geom_line}.}
 
 \item{params_CEPsegment}{a list of arguments for
-\code{ggplot2::geom_segment}; only used for \code{"continuous"} predictions
-and ignored if \code{length(x) > 1}.}
+\code{ggplot2::geom_segment}.}
 
-\item{params_CEPpoint}{a list of arguments for \code{ggplot2::geom_point};
-only used for \code{"discrete"} predictions and ignored if
-\code{length(x) > 1}.}
+\item{params_CEPpoint}{a list of arguments for \code{ggplot2::geom_point}.}
 }
 \description{
 Plotting reliability diagram objects
