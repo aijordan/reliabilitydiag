@@ -51,13 +51,14 @@ same observations. Other objects are coerced by \code{\link{as.reliabilitydiag}}
 before combination.
 }
 \examples{
-set.seed(42)
+data("precip_Niamey_2016", package = "reliabilitydiag")
 
-X <- runif(100)
-Y <- rbinom(100, 1, X)
+X <- precip_Niamey_2016[c("EMOS", "ENS")]
+Y <- precip_Niamey_2016$obs
 r0 <- reliabilitydiag0(Y)
-c(r0, X, X2 = runif(100))
-c(r0, reliabilitydiag(X, y = Y))
+r1 <- c(r0, X, EPC = precip_Niamey_2016$EPC)
+r1
+c(r1, reliabilitydiag(Logistic = precip_Niamey_2016$Logistic, y = Y))
 
 }
 \seealso{

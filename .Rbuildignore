@@ -4,4 +4,6 @@
 ^docs$
 ^pkgdown$
 ^data-raw$
+^README$
 ^README\.Rmd$
+^README\.md$

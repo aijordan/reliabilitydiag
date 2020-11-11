@@ -1,7 +1,7 @@
 #' Coerce to a reliability diagram
 #'
 #' Coerce numeric vectors, data frames, or anything else that can be coerced
-#' by \code{as.data.frame()} to a data frame of prediction values, into
+#' by \code{as.data.frame} to a data frame of prediction values, into
 #' an object inheriting from the \code{'reliabilitydiag'} class.
 #'
 #' @param x an \R object with probability predictions taking values in [0, 1];
@@ -18,7 +18,7 @@
 #' values in \code{x} are rounded to the nearest value in \code{xvalues} and
 #' \code{xtype} is set to \code{"discrete"}.
 #' @param .name_repair This argument is passed on as \code{repair} to
-#' \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}. See there for more details.
+#' \code{\link[vctrs]{vec_as_names}}. See there for more details.
 #' @param region.level a value in (0, 1) specifying the level at which
 #' consistency or confidence regions are calculated.
 #' @param region.method a string specifying whether \code{"resampling"},
@@ -145,13 +145,8 @@ as.reliabilitydiag.data.frame <- function(x,
 
   x <- tibble::as_tibble(x, .name_repair = .name_repair)
 
-  #if (identical(length(r), 0L)) r <- list(r)
   if (!is.list(xtype)) xtype <- list(xtype)
   if (!is.list(xvalues)) xvalues <- list(xvalues)
-  #if (!is.list(region.level)) region.level <- list(region.level)
-  #if (!is.list(region.method)) region.method <- list(region.method)
-  #if (!is.list(region.position)) region.position <- list(region.position)
-  #if (!is.list(n.boot)) n.boot <- list(n.boot)
 
   l_args <- list(
     x = x,

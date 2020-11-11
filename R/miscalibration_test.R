@@ -1,5 +1,7 @@
 #' Miscalibration Test
 #'
+#' (experimental)
+#'
 #' @param x an \R object inheriting from \code{'reliabilitydiag'} or a numeric
 #' vector of probability predictions taking values in [0, 1].
 #' @inheritParams as.reliabilitydiag

@@ -1,5 +1,8 @@
 #' Plotting reliability diagram objects
 #'
+#' Using the \pkg{ggplot2} package to visually diagnose the reliability of
+#' prediction methods that issue probability forecasts.
+#'
 #' @param x an object inheriting from the class \code{'reliabilitydiag'}.
 #' @param object an object inheriting from the class \code{'reliabilitydiag'}.
 #' @param type one of \code{"miscalibration"}, \code{"discrimination"};
@@ -10,17 +13,119 @@
 #' and for the horizontal segment layer and CEP margin histogram
 #' when \code{type} is \code{"discrimination"}.
 #' @param params_histogram a list of arguments for
-#' \code{ggplot2::geom_histogram}.
-#' @param params_ggMarginal a list of arguments for \code{ggExtra::ggMarginal}.
-#' @param params_ribbon a list of arguments for \code{ggplot2::geom_ribbon}.
-#' @param params_diagonal a list of arguments for \code{ggplot2::geom_line}.
-#' @param params_vsegment a list of arguments for \code{ggplot2::geom_segment}.
-#' @param params_hsegment a list of arguments for \code{ggplot2::geom_segment}.
-#' @param params_CEPline a list of arguments for \code{ggplot2::geom_line}.
+#'   \code{ggplot2::geom_histogram};
+#'   this layer shows a histogram of the forecast values in the main plotting
+#'   region.
+#' @param params_ggMarginal a list of arguments for \code{ggExtra::ggMarginal};
+#'   used to show the marginal distributions of the forecast values and
+#'   estimated CEP values by adding plots to the top and right of the main
+#'   plotting region. If this is anything other than \code{NA}, the \code{autoplot}
+#'   output cannot be customized by with additional layers.
+#' @param params_ribbon a list of arguments for \code{ggplot2::geom_ribbon};
+#'   this layer shows the uncertainty quantification results.
+#' @param params_diagonal a list of arguments for \code{ggplot2::geom_line};
+#'   this background layer illustrates perfect reliability.
+#' @param params_vsegment a list of arguments for \code{ggplot2::geom_segment};
+#'   this layer shows a vertical segment illustrating the average forecast value.
+#' @param params_hsegment a list of arguments for \code{ggplot2::geom_segment};
+#'   this layer shows a horizontal segment illustrating the average event frequency.
+#' @param params_CEPline a list of arguments for \code{ggplot2::geom_line};
+#'   this layer shows a linear interpolation of the CEP estimates.
 #' @param params_CEPsegment a list of arguments for
-#' \code{ggplot2::geom_segment}.
-#' @param params_CEPpoint a list of arguments for \code{ggplot2::geom_point}.
+#' \code{ggplot2::geom_segment};
+#'   this layer highlights the pieces where the CEP estimate remains constant.
+#' @param params_CEPpoint a list of arguments for \code{ggplot2::geom_point};
+#'   this layer highlights the CEP estimate only for actually observed forecast values.
 #' @param ... further arguments to be passed to or from methods.
+#'
+#' @return An object inheriting from class \code{'ggplot'}.
+#'
+#' @details
+#' \code{plot} always sends a plot to a graphics device, wheres \code{autoplot}
+#' behaves as any \code{ggplot() + layer()} combination. That means, customized
+#' plots should be created using \code{autoplot}.
+#'
+#' Three sets of default parameter values are used:
+#' \itemize{
+#' \item If multiple predictions
+#'   methods are compared, then only the most necessary information to determine
+#'   reliability are displayed.
+#' \item For a single prediction method and \code{type = "miscalibration"}, the
+#'   focus lies on the deviation from the diagonal including uncertainty
+#'   quantification.
+#' \item For a single prediction method and \code{type = "discrimination"}, the
+#'   focus lies on the PAV transformation and the resulting marginal distribution.
+#'   A concentration of CEP values near 0 or 1 suggest a high potential predictive
+#'   ability of a prediction method.
+#' }
+#'
+#' Setting any of the \code{params_*} arguments to \code{NA} disables that layer.
+#'
+#' Default parameter values if \code{length(object) > 1}:
+#' \tabular{ll}{
+#' \code{params_histogram} \tab \code{NA} \cr
+#' \code{params_ggMarginal} \tab \code{NA} \cr
+#' \code{params_ribbon} \tab \code{NA} \cr
+#' \code{params_diagonal} \tab \code{list(size = 0.3, colour = "black")} \cr
+#' \code{params_vsegment} \tab \code{NA} \cr
+#' \code{params_hsegment} \tab \code{NA} \cr
+#' \code{params_CEPline} \tab \code{list(size = 0.2)} \cr
+#' \code{params_CEPsegment} \tab \code{NA} \cr
+#' \code{params_CEPpoint} \tab \code{NA}
+#' }
+#' Default parameter values for \code{type = "miscalibration"} if \code{length(object) == 1}:
+#' \tabular{ll}{
+#' \code{params_histogram} \tab \code{list(yscale = 0.2, colour = "black", fill = NA)} \cr
+#' \code{params_ggMarginal} \tab \code{NA} \cr
+#' \code{params_ribbon} \tab \code{list(fill = "blue", alpha = 0.15)} \cr
+#' \code{params_diagonal} \tab \code{list(size = 0.3, colour = "black")} \cr
+#' \code{params_vsegment} \tab \code{NA} \cr
+#' \code{params_hsegment} \tab \code{NA} \cr
+#' \code{params_CEPline} \tab \code{list(size = 0.2, colour = colour)} \cr
+#' \code{params_CEPsegment} \tab \code{list(size = 2, colour = colour)} if \code{xtype == "continuous"}; \code{NA} otherwise. \cr
+#' \code{params_CEPpoint} \tab \code{list(size = 2, colour = colour)} if \code{xtype == "discrete"}; \code{NA} otherwise.
+#' }
+#' Default parameter values for \code{type = "discrimination"} if \code{length(object) == 1}:
+#' \tabular{ll}{
+#' \code{params_histogram} \tab \code{NA} \cr
+#' \code{params_ggMarginal} \tab \code{list(type = "histogram", xparams = list(bins = 100, fill = "grey"), yparams = list(bins = 100, fill = colour))} \cr
+#' \code{params_ribbon} \tab \code{NA} \cr
+#' \code{params_diagonal} \tab \code{list(size = 0.3, colour = "lightgrey")} \cr
+#' \code{params_vsegment} \tab \code{list(size = 1.5, colour = "grey")} \cr
+#' \code{params_hsegment} \tab \code{list(size = 1.5, colour = colour)} \cr
+#' \code{params_CEPline} \tab \code{list(size = 0.2, colour = "black")} \cr
+#' \code{params_CEPsegment} \tab \code{NA} \cr
+#' \code{params_CEPpoint} \tab \code{list(colour = "black")}
+#' }
+#'
+#' @examples
+#' data("precip_Niamey_2016", package = "reliabilitydiag")
+#' r <- reliabilitydiag(
+#'   precip_Niamey_2016[c("Logistic", "EMOS", "ENS", "EPC")],
+#'   y = precip_Niamey_2016$obs
+#' )
+#'
+#' # simple plotting
+#' plot(r)
+#'
+#' # custom color scale for multiple prediction methods
+#' cols <- c(Logistic = "red", EMOS = "blue", ENS = "darkgreen", EPC = "orange")
+#' autoplot(r) +
+#'   ggplot2::scale_color_manual(values = cols)
+#'
+#' # adding a title
+#' autoplot(r["EMOS"]) +
+#'   ggplot2::ggtitle("Reliability diagram for EMOS method")
+#'
+#' # using defaults for discrimination diagrams
+#' p <- autoplot(r["EMOS"], type = "discrimination")
+#' print(p, newpage = TRUE)
+#'
+#' # ggMarginal needs to be called after adding all custom layers
+#' p <- autoplot(r["EMOS"], type = "discrimination", params_ggMarginal = NA) +
+#'   ggplot2::ggtitle("Discrimination diagram for EMOS method")
+#' p <- ggExtra::ggMarginal(p, type = "histogram")
+#' print(p, newpage = TRUE)
 #'
 #' @name plot.reliabilitydiag
 NULL
@@ -33,41 +138,40 @@ plot.reliabilitydiag <- function(x, ...) {
   print(p)
 }
 
-#' @rdname plot.reliabilitydiag
 #' @importFrom ggplot2 autoplot
+#' @export
+ggplot2::autoplot
+
+#' @rdname plot.reliabilitydiag
 #' @importFrom ggExtra ggMarginal
 #'
 #' @export
-autoplot.reliabilitydiag <- function(
-  object, ...,
-  type = c("miscalibration", "discrimination"),
-  colour = "red",
-  params_histogram = NULL,
-  params_ggMarginal = NULL,
-  params_ribbon = NULL,
-  params_diagonal = NULL,
-  params_vsegment = NULL,
-  params_hsegment = NULL,
-  params_CEPline = NULL,
-  params_CEPsegment = NULL,
-  params_CEPpoint = NULL
-) {
+autoplot.reliabilitydiag <- function(object,
+                                     ...,
+                                     type = c("miscalibration", "discrimination"),
+                                     colour = "red",
+                                     params_histogram = NULL,
+                                     params_ggMarginal = NULL,
+                                     params_ribbon = NULL,
+                                     params_diagonal = NULL,
+                                     params_vsegment = NULL,
+                                     params_hsegment = NULL,
+                                     params_CEPline = NULL,
+                                     params_CEPsegment = NULL,
+                                     params_CEPpoint = NULL) {
   r <- object
   type <- match.arg(type)
-  if (identical(type, "discrimination") && length(r) > 1L) {
-    stop("'discrimination' diagrams cannot display multiple forecast methods.")
+  if (length(r) > 1L) {
+    type <- ""
   }
 
   # loading default values
   if (is.null(params_histogram)) {
     params_histogram <- switch(
       type,
-      miscalibration = if (identical(length(r), 1L)) {
-        list(yscale = 0.2, colour = "black", fill = NA)
-      } else {
-        NA
-      },
-      discrimination = NA)
+      miscalibration = list(yscale = 0.2, colour = "black", fill = NA),
+      discrimination = NA,
+      NA)
   }
   if (is.null(params_ggMarginal)) {
     params_ggMarginal <- switch(
@@ -76,56 +180,55 @@ autoplot.reliabilitydiag <- function(
       discrimination = list(
         type = "histogram",
         xparams = list(bins = 100, fill = "grey"),
-        yparams = list(bins = 100, fill = colour)))
+        yparams = list(bins = 100, fill = colour)
+      ),
+      NA)
   }
   if (is.null(params_ribbon)) {
     params_ribbon <- switch(
       type,
-      miscalibration = if (identical(length(r), 1L)) {
-        list(fill = "blue", alpha = 0.15)
-      } else {
-        NA
-      },
-      discrimination = NA)
+      miscalibration = list(fill = "blue", alpha = 0.15),
+      discrimination = NA,
+      NA)
   }
   if (is.null(params_diagonal)) {
     params_diagonal <- switch(
       type,
       miscalibration = list(size = 0.3, colour = "black"),
-      discrimination = list(size = 0.3, colour = "lightgrey"))
+      discrimination = list(size = 0.3, colour = "lightgrey"),
+      list(size = 0.3, colour = "black"))
   }
   if (is.null(params_vsegment)) {
     params_vsegment <- switch(
       type,
       miscalibration = NA,
-      discrimination = list(size = 1.5, colour = "grey"))
+      discrimination = list(size = 1.5, colour = "grey"),
+      NA)
   }
   if (is.null(params_hsegment)) {
     params_hsegment <- switch(
       type,
       miscalibration = NA,
-      discrimination = list(size = 1.5, colour = colour))
+      discrimination = list(size = 1.5, colour = colour),
+      NA)
   }
   if (is.null(params_CEPline)) {
     params_CEPline <- switch(
       type,
-      miscalibration = if (identical(length(r), 1L)) {
-        list(size = 0.2, colour = colour)
-      } else {
-        list(size = 0.2)
-      },
-      discrimination = list(size = 0.2, colour = "black"))
+      miscalibration = list(size = 0.2, colour = colour),
+      discrimination = list(size = 0.2, colour = "black"),
+      list(size = 0.2))
   }
   if (is.null(params_CEPsegment)) {
     params_CEPsegment <- switch(
       type,
-      miscalibration = if (identical(length(r), 1L) &&
-                           identical(r[[1L]]$xinfo$type, "continuous")) {
+      miscalibration = if (identical(r[[1L]]$xinfo$type, "continuous")) {
         list(size = 2, colour = colour)
       } else {
         NA
       },
-      discrimination = NA)
+      discrimination = NA,
+      NA)
   }
   if (is.null(params_CEPpoint)) {
     params_CEPpoint <- switch(
@@ -133,13 +236,13 @@ autoplot.reliabilitydiag <- function(
       miscalibration = if (!isTRUE(is.na(params_ggMarginal))) {
         # ggExtra::ggMarginal requires a scatter plot
         list(colour = colour)
-      } else if (identical(length(r), 1L) &&
-                 identical(r[[1L]]$xinfo$type, "discrete")) {
+      } else if (identical(r[[1L]]$xinfo$type, "discrete")) {
         list(size = 2, colour = colour)
       } else {
         NA
       },
-      discrimination = list(colour = "black"))
+      discrimination = list(colour = "black"),
+      NA)
   }
 
   # initialize plot object

@@ -184,28 +184,28 @@ where \eqn{x0} is an original prediction value,
 and \eqn{f(x0)} is the estimated value of the density of the
 original prediction values.
 This density is estimated using the \code{bde} package: We use Chen's
-beta kernel density estimator (see \code{\link[bde:bde]{bde::bde()}}).
+beta kernel density estimator (see \code{\link[bde]{bde}}).
 }
 \examples{
-set.seed(42)
+data("precip_Niamey_2016", package = "reliabilitydiag")
 
-X <- runif(100)
-Y <- rbinom(100, 1, X)
-r <- reliabilitydiag(X, y = Y)
+X <- precip_Niamey_2016$EMOS
+Y <- precip_Niamey_2016$obs
+r <- reliabilitydiag(X = X, y = Y)
 r
 
 # no consistency/confidence regions
-r1 <- reliabilitydiag(X, y = Y, region.level = NA)
+r1 <- reliabilitydiag(X = X, y = Y, region.level = NA)
 r1
 
 # specify predictions via existing reliabilitydiag
 r0 <- reliabilitydiag0(Y)
-identical(r1, reliabilitydiag(X, r = r0, region.level = NA))
+identical(r1, reliabilitydiag(X = X, r = r0, region.level = NA))
 
 # only observation information is used from existing reliabilitydiag
-X2 <- runif(100)
-r2 <- reliabilitydiag(X2, r = r, region.level = NA)
-r3 <- reliabilitydiag(X2, r = r0, region.level = NA)
+X2 <- precip_Niamey_2016$ENS
+r2 <- reliabilitydiag(X2 = X2, r = r, region.level = NA)
+r3 <- reliabilitydiag(X2 = X2, r = r0, region.level = NA)
 identical(r2, r3)
 
 }

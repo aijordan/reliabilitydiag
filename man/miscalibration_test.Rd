@@ -31,5 +31,5 @@ returns a \code{'tibble'} with entries
  }
 }
 \description{
-Miscalibration Test
+(experimental)
 }

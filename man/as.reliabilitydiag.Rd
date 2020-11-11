@@ -65,7 +65,7 @@ values in \code{x} are rounded to the nearest value in \code{xvalues} and
 \code{xtype} is set to \code{"discrete"}.}
 
 \item{.name_repair}{This argument is passed on as \code{repair} to
-\code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}. See there for more details.}
+\code{\link[vctrs]{vec_as_names}}. See there for more details.}
 
 \item{region.level}{a value in (0, 1) specifying the level at which
 consistency or confidence regions are calculated.}
@@ -90,7 +90,7 @@ around the \code{"diagonal"} or confidence regions around the
 }
 \description{
 Coerce numeric vectors, data frames, or anything else that can be coerced
-by \code{as.data.frame()} to a data frame of prediction values, into
+by \code{as.data.frame} to a data frame of prediction values, into
 an object inheriting from the \code{'reliabilitydiag'} class.
 }
 \seealso{

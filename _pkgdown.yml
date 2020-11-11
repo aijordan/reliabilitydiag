@@ -22,3 +22,6 @@ reference:
 - title: Testing
 - contents:
   - miscalibration_test
+- title: Data
+- contents:
+  - precip_Niamey_2016

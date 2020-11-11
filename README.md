@@ -24,7 +24,6 @@ devtools::install_github("aijordan/reliabilitydiag")
 
 ``` r
 library(reliabilitydiag)
-
 data("precip_Niamey_2016", package = "reliabilitydiag")
 
 X <- precip_Niamey_2016$EMOS

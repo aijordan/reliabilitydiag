@@ -18,14 +18,15 @@ an object inheriting from the class \code{'reliabilitydiag'}.
 Subsetting reliability diagram objects
 }
 \examples{
-set.seed(42)
+data("precip_Niamey_2016", package = "reliabilitydiag")
 
-X1 <- runif(100)
-X2 <- runif(100)
-Y <- rbinom(100, 1, X1)
-r <- reliabilitydiag(X1, X2, y = Y)
+r <- reliabilitydiag(
+  precip_Niamey_2016[c("Logistic", "EMOS", "ENS", "EPC")],
+  y = precip_Niamey_2016$obs
+)
 length(r)
 r[1]
+r["EMOS"]
 
 }
 \seealso{

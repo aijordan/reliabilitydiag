@@ -13,23 +13,26 @@
 #' @seealso \code{\link{as.reliabilitydiag}}, \code{\link{[.reliabilitydiag}}.
 #'
 #' @examples
-#' set.seed(42)
+#' data("precip_Niamey_2016", package = "reliabilitydiag")
 #'
-#' X <- runif(100)
-#' Y <- rbinom(100, 1, X)
+#' X <- precip_Niamey_2016[c("EMOS", "ENS")]
+#' Y <- precip_Niamey_2016$obs
 #' r0 <- reliabilitydiag0(Y)
-#' c(r0, X, X2 = runif(100))
-#' c(r0, reliabilitydiag(X, y = Y))
+#' r1 <- c(r0, X, EPC = precip_Niamey_2016$EPC)
+#' r1
+#' c(r1, reliabilitydiag(Logistic = precip_Niamey_2016$Logistic, y = Y))
 #'
 #' @importFrom vctrs vec_as_names
 #'
 #' @export
-c.reliabilitydiag <- function(
-  ..., tol = sqrt(.Machine$double.eps),
-  xtype = NULL, xvalues = NULL,
-  region.level = 0.9, region.method = NULL, region.position = "diagonal",
-  n.boot = 100) {
-
+c.reliabilitydiag <- function(...,
+                              tol = sqrt(.Machine$double.eps),
+                              xtype = NULL,
+                              xvalues = NULL,
+                              region.level = 0.9,
+                              region.method = NULL,
+                              region.position = "diagonal",
+                              n.boot = 100) {
   input <- list(...)
   proto <- input[[1L]]
   attribs <- attributes_without_names(proto)
@@ -68,14 +71,15 @@ c.reliabilitydiag <- function(
 #' @seealso \code{\link{c.reliabilitydiag}}.
 #'
 #' @examples
-#' set.seed(42)
+#' data("precip_Niamey_2016", package = "reliabilitydiag")
 #'
-#' X1 <- runif(100)
-#' X2 <- runif(100)
-#' Y <- rbinom(100, 1, X1)
-#' r <- reliabilitydiag(X1, X2, y = Y)
+#' r <- reliabilitydiag(
+#'   precip_Niamey_2016[c("Logistic", "EMOS", "ENS", "EPC")],
+#'   y = precip_Niamey_2016$obs
+#' )
 #' length(r)
 #' r[1]
+#' r["EMOS"]
 #'
 #' @export
 `[.reliabilitydiag` <- function(x, i) {

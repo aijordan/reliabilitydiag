@@ -8,7 +8,7 @@ attributes_without_names <- function(r) {
   attributes(r)[names(attributes(r)) != "names"]
 }
 
-bla <- function(regions, t) {
+region_at <- function(regions, t) { # unused at the moment
   with(
     regions,
     tibble::tibble(

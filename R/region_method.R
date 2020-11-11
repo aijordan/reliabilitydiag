@@ -9,23 +9,27 @@ continuous_asymptotics <- function(df_pav, df_bins, region.level, region.positio
     ) %>%
       bde::density(.data$x)
   )
-  # hlp = dplyr::group_by(df.pava, bin_id) %>%
-  #   dplyr::mutate(avg = mean(x)) %>%
-  #   dplyr::group_by(x) %>%
-  #   dplyr::summarise(avg = unique(avg)) %>%
-  #   dplyr::pull(avg)
+
   CEP_prime <- switch(
     region.position,
     diagonal = rlang::expr(1),
     estimate = rlang::expr(1)
+    # at some point we need to improve this:
+    # a constant slope of 1 for the TRUE CEP function is unreasonable
+    # the following would be a naive approximation
     # {
+    #   hlp = dplyr::group_by(df.pava, bin_id) %>%
+    #     dplyr::mutate(avg = mean(x)) %>%
+    #     dplyr::group_by(x) %>%
+    #     dplyr::summarise(avg = unique(avg)) %>%
+    #     dplyr::pull(avg)
     #   predict(stats::loess(CEP_pav ~ hlp)) %>%
     #     (function(t) c(
     #       diff(head(t, 2)) / diff(head(hlp, 2)),
     #       diff(t, 2) / diff(hlp, 2),
     #       diff(tail(t, 2)) / diff(tail(hlp, 2))
     #     ))
-    # })
+    # }
   )
   # Here, we estimate  the F_i [in sigma^2(x_0) = (1-F_i)*F_i] by "FC",
   # as we "assume (basically as under the H0)" that CEP(x)=x
@@ -127,6 +131,7 @@ resampling <- function(df.pava, df_bins, region.level, region.position, n.boot, 
 }
 
 restricted_resampling <- function(df.pava, df_bins, region.level, region.position, n.boot, ...) {
+  ### experimental
   # m.asy <- 5*n.FC.unique # The "5" seems to be a compromise...
   m.asy <- 100
   # Preliminary results look like we would need m.asy to slowly increase with k !!!
