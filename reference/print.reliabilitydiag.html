@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Printing reliability diagram objects — print.reliabilitydiag" />
-<meta property="og:description" content="Printing reliability diagram objects" />
+<meta property="og:description" content="Printing methods for 'reliabilitydiag' and
+'summary.reliabilitydiag' objects." />
 
 
 
@@ -114,14 +115,15 @@
     </div>
 
     <div class="ref-description">
-    <p>Printing reliability diagram objects</p>
+    <p>Printing methods for <code>'reliabilitydiag'</code> and
+<code>'summary.reliabilitydiag'</code> objects.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for reliabilitydiag</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for summary.reliabilitydiag</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,10 +134,24 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments to be passed to or from methods.</p></td>
+      <td><p>further arguments to be passed to or from methods;
+in particular, these are passed to <code><a href='plot.reliabilitydiag.html'>autoplot.reliabilitydiag</a></code>
+and <code><a href='https://tibble.tidyverse.org/reference/formatting.html'>print.tbl_df</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Invisibly returns <code>x</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>print.reliabilitydiag</code> always sends a plot to the current graphics
+device and prints a summary to the console.</p>
+<p><code>print.summary.reliabilitydiag</code> prints the summary output to the console.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='plot.reliabilitydiag.html'>autoplot.reliabilitydiag</a></code>,
+  <code><a href='summary.reliabilitydiag.html'>summary.reliabilitydiag</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -152,7 +168,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

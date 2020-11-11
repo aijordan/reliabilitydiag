@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Plotting reliability diagram objects — plot.reliabilitydiag" />
-<meta property="og:description" content="Plotting reliability diagram objects" />
+<meta property="og:description" content="Using the ggplot2 package to visually diagnose the reliability of
+prediction methods that issue probability forecasts." />
 
 
 
@@ -114,24 +115,29 @@
     </div>
 
     <div class="ref-description">
-    <p>Plotting reliability diagram objects</p>
+    <p>Using the <span class="pkg">ggplot2</span> package to visually diagnose the reliability of
+prediction methods that issue probability forecasts.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for reliabilitydiag</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for reliabilitydiag</span>
-<span class='fu'>autoplot</span>(
-  <span class='no'>object</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-  <span class='kw'>params_histogram</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>yscale</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>),
-  <span class='kw'>params_ribbon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.15</span>),
-  <span class='kw'>params_diagonal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.3</span>),
-  <span class='kw'>params_CEPline</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>colour</span>),
-  <span class='kw'>params_CEPsegment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>colour</span>),
-  <span class='kw'>params_CEPpoint</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>colour</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>16</span>)
-)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"miscalibration"</span>, <span class='st'>"discrimination"</span><span class='op'>)</span>,
+  colour <span class='op'>=</span> <span class='st'>"red"</span>,
+  params_histogram <span class='op'>=</span> <span class='cn'>NULL</span>,
+  params_ggMarginal <span class='op'>=</span> <span class='cn'>NULL</span>,
+  params_ribbon <span class='op'>=</span> <span class='cn'>NULL</span>,
+  params_diagonal <span class='op'>=</span> <span class='cn'>NULL</span>,
+  params_vsegment <span class='op'>=</span> <span class='cn'>NULL</span>,
+  params_hsegment <span class='op'>=</span> <span class='cn'>NULL</span>,
+  params_CEPline <span class='op'>=</span> <span class='cn'>NULL</span>,
+  params_CEPsegment <span class='op'>=</span> <span class='cn'>NULL</span>,
+  params_CEPpoint <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,42 +155,159 @@
       <td><p>an object inheriting from the class <code>'reliabilitydiag'</code>.</p></td>
     </tr>
     <tr>
+      <th>type</th>
+      <td><p>one of <code>"miscalibration"</code>, <code>"discrimination"</code>;
+determines which
+layers are added by default, including default parameter values.</p></td>
+    </tr>
+    <tr>
       <th>colour</th>
-      <td><p>a colour to be used in the CEP layers.</p></td>
+      <td><p>a colour to be used to draw focus;
+used for the CEP layers when <code>type</code> is <code>"miscalibration"</code>,
+and for the horizontal segment layer and CEP margin histogram
+when <code>type</code> is <code>"discrimination"</code>.</p></td>
     </tr>
     <tr>
       <th>params_histogram</th>
       <td><p>a list of arguments for
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>ggplot2::geom_histogram</a></code>; ignored if <code>length(x) &gt; 1</code>.</p></td>
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>ggplot2::geom_histogram</a></code>;
+this layer shows a histogram of the forecast values in the main plotting
+region.</p></td>
+    </tr>
+    <tr>
+      <th>params_ggMarginal</th>
+      <td><p>a list of arguments for <code><a href='https://rdrr.io/pkg/ggExtra/man/ggMarginal.html'>ggExtra::ggMarginal</a></code>;
+used to show the marginal distributions of the forecast values and
+estimated CEP values by adding plots to the top and right of the main
+plotting region. If this is anything other than <code>NA</code>, the <code>autoplot</code>
+output cannot be customized by with additional layers.</p></td>
     </tr>
     <tr>
       <th>params_ribbon</th>
       <td><p>a list of arguments for <code><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>ggplot2::geom_ribbon</a></code>;
-ignored if <code>length(x) &gt; 1</code>.</p></td>
+this layer shows the uncertainty quantification results.</p></td>
     </tr>
     <tr>
       <th>params_diagonal</th>
-      <td><p>a list of arguments for <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>ggplot2::geom_line</a></code>.</p></td>
+      <td><p>a list of arguments for <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>ggplot2::geom_line</a></code>;
+this background layer illustrates perfect reliability.</p></td>
+    </tr>
+    <tr>
+      <th>params_vsegment</th>
+      <td><p>a list of arguments for <code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>ggplot2::geom_segment</a></code>;
+this layer shows a vertical segment illustrating the average forecast value.</p></td>
+    </tr>
+    <tr>
+      <th>params_hsegment</th>
+      <td><p>a list of arguments for <code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>ggplot2::geom_segment</a></code>;
+this layer shows a horizontal segment illustrating the average event frequency.</p></td>
     </tr>
     <tr>
       <th>params_CEPline</th>
-      <td><p>a list of arguments for <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>ggplot2::geom_line</a></code>.</p></td>
+      <td><p>a list of arguments for <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>ggplot2::geom_line</a></code>;
+this layer shows a linear interpolation of the CEP estimates.</p></td>
     </tr>
     <tr>
       <th>params_CEPsegment</th>
       <td><p>a list of arguments for
-<code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>ggplot2::geom_segment</a></code>; only used for <code>"continuous"</code> predictions
-and ignored if <code>length(x) &gt; 1</code>.</p></td>
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>ggplot2::geom_segment</a></code>;
+  this layer highlights the pieces where the CEP estimate remains constant.</p></td>
     </tr>
     <tr>
       <th>params_CEPpoint</th>
       <td><p>a list of arguments for <code><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>ggplot2::geom_point</a></code>;
-only used for <code>"discrete"</code> predictions and ignored if
-<code>length(x) &gt; 1</code>.</p></td>
+this layer highlights the CEP estimate only for actually observed forecast values.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>An object inheriting from class <code>'ggplot'</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>plot</code> always sends a plot to a graphics device, wheres <code>autoplot</code>
+behaves as any <code>ggplot() + layer()</code> combination. That means, customized
+plots should be created using <code>autoplot</code>.</p>
+<p>Three sets of default parameter values are used:</p><ul>
+<li><p>If multiple predictions
+  methods are compared, then only the most necessary information to determine
+  reliability are displayed.</p></li>
+<li><p>For a single prediction method and <code>type = "miscalibration"</code>, the
+  focus lies on the deviation from the diagonal including uncertainty
+  quantification.</p></li>
+<li><p>For a single prediction method and <code>type = "discrimination"</code>, the
+  focus lies on the PAV transformation and the resulting marginal distribution.
+  A concentration of CEP values near 0 or 1 suggest a high potential predictive
+  ability of a prediction method.</p></li>
+</ul>
+
+<p>Setting any of the <code>params_*</code> arguments to <code>NA</code> disables that layer.</p>
+<p>Default parameter values if <code>length(object) &gt; 1</code>:</p><table class='table'>
+<tr><td><code>params_histogram</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_ggMarginal</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_ribbon</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_diagonal</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 0.3, colour = "black")</a></code></td></tr>
+<tr><td><code>params_vsegment</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_hsegment</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_CEPline</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 0.2)</a></code></td></tr>
+<tr><td><code>params_CEPsegment</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_CEPpoint</code></td><td><code>NA</code></td></tr>
+</table>
+<p>Default parameter values for <code>type = "miscalibration"</code> if <code>length(object) == 1</code>:</p><table class='table'>
+<tr><td><code>params_histogram</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(yscale = 0.2, colour = "black", fill = NA)</a></code></td></tr>
+<tr><td><code>params_ggMarginal</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_ribbon</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(fill = "blue", alpha = 0.15)</a></code></td></tr>
+<tr><td><code>params_diagonal</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 0.3, colour = "black")</a></code></td></tr>
+<tr><td><code>params_vsegment</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_hsegment</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_CEPline</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 0.2, colour = colour)</a></code></td></tr>
+<tr><td><code>params_CEPsegment</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 2, colour = colour)</a></code> if <code>xtype == "continuous"</code>; <code>NA</code> otherwise.</td></tr>
+<tr><td><code>params_CEPpoint</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 2, colour = colour)</a></code> if <code>xtype == "discrete"</code>; <code>NA</code> otherwise.</td></tr>
+</table>
+<p>Default parameter values for <code>type = "discrimination"</code> if <code>length(object) == 1</code>:</p><table class='table'>
+<tr><td><code>params_histogram</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_ggMarginal</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(type = "histogram", xparams = list(bins = 100, fill = "grey"), yparams = list(bins = 100, fill = colour))</a></code></td></tr>
+<tr><td><code>params_ribbon</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_diagonal</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 0.3, colour = "lightgrey")</a></code></td></tr>
+<tr><td><code>params_vsegment</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 1.5, colour = "grey")</a></code></td></tr>
+<tr><td><code>params_hsegment</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 1.5, colour = colour)</a></code></td></tr>
+<tr><td><code>params_CEPline</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(size = 0.2, colour = "black")</a></code></td></tr>
+<tr><td><code>params_CEPsegment</code></td><td><code>NA</code></td></tr>
+<tr><td><code>params_CEPpoint</code></td><td><code><a href='https://rdrr.io/r/base/list.html'>list(colour = "black")</a></code></td></tr>
+</table>
+
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"precip_Niamey_2016"</span>, package <span class='op'>=</span> <span class='st'>"reliabilitydiag"</span><span class='op'>)</span>
+<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='reliabilitydiag.html'>reliabilitydiag</a></span><span class='op'>(</span>
+  <span class='va'>precip_Niamey_2016</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Logistic"</span>, <span class='st'>"EMOS"</span>, <span class='st'>"ENS"</span>, <span class='st'>"EPC"</span><span class='op'>)</span><span class='op'>]</span>,
+  y <span class='op'>=</span> <span class='va'>precip_Niamey_2016</span><span class='op'>$</span><span class='va'>obs</span>
+<span class='op'>)</span>
+
+<span class='co'># simple plotting</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
+</div><div class='img'><img src='plot.reliabilitydiag-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># custom color scale for multiple prediction methods</span>
+<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Logistic <span class='op'>=</span> <span class='st'>"red"</span>, EMOS <span class='op'>=</span> <span class='st'>"blue"</span>, ENS <span class='op'>=</span> <span class='st'>"darkgreen"</span>, EPC <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>cols</span><span class='op'>)</span>
+</div><div class='img'><img src='plot.reliabilitydiag-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># adding a title</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>[</span><span class='st'>"EMOS"</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ggtitle</a></span><span class='op'>(</span><span class='st'>"Reliability diagram for EMOS method"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot.reliabilitydiag-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># using defaults for discrimination diagrams</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>[</span><span class='st'>"EMOS"</span><span class='op'>]</span>, type <span class='op'>=</span> <span class='st'>"discrimination"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>p</span>, newpage <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot.reliabilitydiag-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># ggMarginal needs to be called after adding all custom layers</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>[</span><span class='st'>"EMOS"</span><span class='op'>]</span>, type <span class='op'>=</span> <span class='st'>"discrimination"</span>, params_ggMarginal <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ggtitle</a></span><span class='op'>(</span><span class='st'>"Discrimination diagram for EMOS method"</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggExtra/man/ggMarginal.html'>ggMarginal</a></span><span class='op'>(</span><span class='va'>p</span>, type <span class='op'>=</span> <span class='st'>"histogram"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>p</span>, newpage <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot.reliabilitydiag-5.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -200,7 +323,7 @@ only used for <code>"discrete"</code> predictions and ignored if
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

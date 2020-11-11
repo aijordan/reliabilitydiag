@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Coerce to a reliability diagram — as.reliabilitydiag" />
 <meta property="og:description" content="Coerce numeric vectors, data frames, or anything else that can be coerced
-by as.data.frame() to a data frame of prediction values, into
+by as.data.frame to a data frame of prediction values, into
 an object inheriting from the 'reliabilitydiag' class." />
 
 
@@ -117,46 +117,46 @@ an object inheriting from the 'reliabilitydiag' class." />
 
     <div class="ref-description">
     <p>Coerce numeric vectors, data frames, or anything else that can be coerced
-by <code><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame()</a></code> to a data frame of prediction values, into
+by <code>as.data.frame</code> to a data frame of prediction values, into
 an object inheriting from the <code>'reliabilitydiag'</code> class.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as.reliabilitydiag</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>as.reliabilitydiag</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>is.reliabilitydiag</span>(<span class='no'>x</span>)
+<span class='fu'>is.reliabilitydiag</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for reliabilitydiag</span>
-<span class='fu'>as.reliabilitydiag</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='no'>.Machine</span>$<span class='no'>double.eps</span>), <span class='no'>...</span>)
+<span class='fu'>as.reliabilitydiag</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, r <span class='op'>=</span> <span class='cn'>NULL</span>, tol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>as.reliabilitydiag</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xtype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xvalues</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"unique"</span>,
-  <span class='kw'>region.level</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>region.method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>region.position</span> <span class='kw'>=</span> <span class='st'>"diagonal"</span>,
-  <span class='kw'>n.boot</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>as.reliabilitydiag</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  r <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xtype <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xvalues <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  region.level <span class='op'>=</span> <span class='fl'>0.9</span>,
+  region.method <span class='op'>=</span> <span class='cn'>NULL</span>,
+  region.position <span class='op'>=</span> <span class='st'>"diagonal"</span>,
+  n.boot <span class='op'>=</span> <span class='fl'>100</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>as.reliabilitydiag</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xtype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xvalues</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"unique"</span>,
-  <span class='kw'>region.level</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>region.method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>region.position</span> <span class='kw'>=</span> <span class='st'>"diagonal"</span>,
-  <span class='kw'>n.boot</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>as.reliabilitydiag</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  r <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xtype <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xvalues <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .name_repair <span class='op'>=</span> <span class='st'>"unique"</span>,
+  region.level <span class='op'>=</span> <span class='fl'>0.9</span>,
+  region.method <span class='op'>=</span> <span class='cn'>NULL</span>,
+  region.position <span class='op'>=</span> <span class='st'>"diagonal"</span>,
+  n.boot <span class='op'>=</span> <span class='fl'>100</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,7 +199,7 @@ values in <code>x</code> are rounded to the nearest value in <code>xvalues</code
     <tr>
       <th>.name_repair</th>
       <td><p>This argument is passed on as <code>repair</code> to
-<code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>. See there for more details.</p></td>
+<code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vec_as_names</a></code>. See there for more details.</p></td>
     </tr>
     <tr>
       <th>region.level</th>
@@ -250,7 +250,7 @@ around the <code>"diagonal"</code> or confidence regions around the
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
