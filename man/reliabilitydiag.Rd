@@ -168,20 +168,20 @@ lower and upper bounds are calculated across the resulting CEP lines.
 When \code{region.method} is \code{"discrete_asymptotics"} and
 \code{region.position} is \code{"diagonal"},
 a Gaussian
-approximation is used assuming \eqn{\sqrt{n} * (EST(x0) - x0)} has variance
-\eqn{x0(1-x0)}, where
-\eqn{x0} is an original prediction value,
-\eqn{n} is the observed number of predictions with value \eqn{x0},
-and \eqn{EST(x0)} is the estimated CEP value at \eqn{x0}.
+approximation is used assuming \eqn{\sqrt{n} * (EST(x) - x)} has variance
+\eqn{x(1-x)}, where
+\eqn{x} is an original prediction value,
+\eqn{n} is the observed number of predictions with value \eqn{x},
+and \eqn{EST(x)} is the estimated CEP value at \eqn{x}.
 
 When \code{region.method} is \code{"continuous_asymptotics"} and
 \code{region.position} is \code{"diagonal"},
 a Chernoff approximation is used for
-\eqn{(n * f(x0) / (4 * x0 * (1- x0)))^(1/3) * (EST(x0) - x0)},
-where \eqn{x0} is an original prediction value,
+\eqn{(n * f(x) / (4 * x * (1- x)))^{(1/3)} * (EST(x) - x)},
+where \eqn{x} is an original prediction value,
 \eqn{n} is the total number of observations,
-\eqn{EST(x0)} is the estimated CEP value at \eqn{x0},
-and \eqn{f(x0)} is the estimated value of the density of the
+\eqn{EST(x)} is the estimated CEP value at \eqn{x},
+and \eqn{f(x)} is the estimated value of the density of the
 original prediction values.
 This density is estimated using the \code{bde} package: We use Chen's
 beta kernel density estimator (see \code{\link[bde]{bde}}).
@@ -189,12 +189,13 @@ beta kernel density estimator (see \code{\link[bde]{bde}}).
 \examples{
 data("precip_Niamey_2016", package = "reliabilitydiag")
 
-X <- precip_Niamey_2016$EMOS
-Y <- precip_Niamey_2016$obs
-r <- reliabilitydiag(X = X, y = Y)
+# standard use with a data.frame
+r <- reliabilitydiag(precip_Niamey_2016["EMOS"], y = precip_Niamey_2016$obs)
 r
 
 # no consistency/confidence regions
+X <- precip_Niamey_2016$EMOS
+Y <- precip_Niamey_2016$obs
 r1 <- reliabilitydiag(X = X, y = Y, region.level = NA)
 r1
 
