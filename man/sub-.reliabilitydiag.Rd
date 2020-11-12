@@ -21,7 +21,7 @@ Subsetting reliability diagram objects
 data("precip_Niamey_2016", package = "reliabilitydiag")
 
 r <- reliabilitydiag(
-  precip_Niamey_2016[c("Logistic", "EMOS", "ENS", "EPC")],
+  precip_Niamey_2016[c("Logistic", "EMOS")],
   y = precip_Niamey_2016$obs
 )
 length(r)

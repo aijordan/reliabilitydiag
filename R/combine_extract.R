@@ -18,7 +18,7 @@
 #' X <- precip_Niamey_2016[c("EMOS", "ENS")]
 #' Y <- precip_Niamey_2016$obs
 #' r0 <- reliabilitydiag0(Y)
-#' r1 <- c(r0, X, EPC = precip_Niamey_2016$EPC)
+#' r1 <- c(r0, X, EPC = precip_Niamey_2016$EPC, region.level = NA)
 #' r1
 #' c(r1, reliabilitydiag(Logistic = precip_Niamey_2016$Logistic, y = Y))
 #'
@@ -74,7 +74,7 @@ c.reliabilitydiag <- function(...,
 #' data("precip_Niamey_2016", package = "reliabilitydiag")
 #'
 #' r <- reliabilitydiag(
-#'   precip_Niamey_2016[c("Logistic", "EMOS", "ENS", "EPC")],
+#'   precip_Niamey_2016[c("Logistic", "EMOS")],
 #'   y = precip_Niamey_2016$obs
 #' )
 #' length(r)

@@ -102,7 +102,8 @@
 #' data("precip_Niamey_2016", package = "reliabilitydiag")
 #' r <- reliabilitydiag(
 #'   precip_Niamey_2016[c("Logistic", "EMOS", "ENS", "EPC")],
-#'   y = precip_Niamey_2016$obs
+#'   y = precip_Niamey_2016$obs,
+#'   region.level = NA
 #' )
 #'
 #' # simple plotting
@@ -113,8 +114,13 @@
 #' autoplot(r) +
 #'   ggplot2::scale_color_manual(values = cols)
 #'
-#' # adding a title
-#' autoplot(r["EMOS"]) +
+#' # default reliability diagram type with a title
+#' rr <- reliabilitydiag(
+#'   EMOS = precip_Niamey_2016$EMOS,
+#'   r = r,
+#'   region.level = 0.9
+#' )
+#' autoplot(rr) +
 #'   ggplot2::ggtitle("Reliability diagram for EMOS method")
 #'
 #' # using defaults for discrimination diagrams
