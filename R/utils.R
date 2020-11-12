@@ -40,7 +40,15 @@ choose_breaks <- function(x, xtype) {
 
 breaks_fd <- function(x) {
   # Use the "Freedman–Diaconis" binning rule
-  binwidth <- 2 * stats::IQR(x) / length(x)^(1 / 3)
+  iqr <- stats::IQR(x)
+  if (iqr < sqrt(.Machine$double.eps)) {
+    # in particular, this covers the case where >75% of forecast values are 0
+    # e.g., probability of precipitation forecasts
+    # maybe that shouldn't be detected as "continuous" in the first place
+    binwidth <- 1 / 400
+  } else {
+    binwidth <- 2 * iqr / length(x)^(1 / 3)
+  }
   xrange <- range(x)
   round(diff(xrange) / binwidth) %>%
     max(5) %>%
@@ -55,17 +63,25 @@ breaks_discrete <- function(x) {
 
 detect_xtype <- function(x) {
   x_unique <- sort(unique(x))
-  if (identical(length(x_unique), 1L)) return("discrete")
-  if (isTRUE(min(diff(x_unique)) >= 0.01)) return("discrete")
-  return("continuous")
+  if (identical(length(x_unique), 1L)) {
+    return("discrete")
+  }
+  if (isTRUE(min(diff(x_unique)) >= 0.01)) {
+    return("discrete")
+  }
+  "continuous"
 }
 
 detect_regionmethod <- function(x, region.position) {
-  if (region.position == "estimate") return("resampling")
+  if (region.position == "estimate") {
+    return("resampling")
+  }
 
   n <- length(x)
   n_unique <- length(unique(x))
-  if (isTRUE(n <= max(1000L, min(5000L, 50L * n_unique)))) return("resampling")
+  if (isTRUE(n <= max(1000L, min(5000L, 50L * n_unique)))) {
+    return("resampling")
+  }
   sprintf(
     "%s_asymptotics",
     ifelse(isTRUE(n >= 8L * n_unique^2), "discrete", "continuous")
