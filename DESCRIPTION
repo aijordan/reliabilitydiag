@@ -1,17 +1,24 @@
 Package: reliabilitydiag
-Title: plot reliability diagrams based on PAVA binning 
 Version: 0.1.0
+Title: Reliability Diagrams Using Isotonic Regression
+Description: This package implements reliability diagrams via the CORP approach,
+    which generates provably statistically Consistent, Optimally binned, and
+    Reproducible reliability diagrams in an automated way.
 Authors@R: c(
-    person("Timo", "Dimitriadis", role = "aut"),
-    person(c("Alexander", "I."), "Jordan", role = c("aut", "cre"), email = "alexander.jordan@h-its.org"))
-Description: plot reliability diagrams based on PAVA binning.
+    person(given = "Timo",
+           family = "Dimitriadis",
+           role = "aut"),
+    person(given = c("Alexander", "I."),
+           family = "Jordan",
+           role = c("aut", "cre"),
+           email = "alexander.jordan@h-its.org"))
 URL: https://github.com/aijordan/reliabilitydiag/
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Depends:
-    R (>= 2.10)
+    R (>= 3.1.0)
 Imports:
     magrittr,
     tidyr,
