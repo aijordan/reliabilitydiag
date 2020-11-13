@@ -9,6 +9,3 @@ historical observations for the occurence of precipitation (column 'obs').
 These data components are governed by the
   Creative Commons Attribution 4.0 International (CC BY 4.0)
   https://creativecommons.org/licenses/by/4.0/
-
-The previous also applies to the corresponding data in the file
-"data-raw/Forecasts_observations_Niamey_2016.Rdata".

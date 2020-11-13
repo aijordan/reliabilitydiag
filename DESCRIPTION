@@ -1,9 +1,9 @@
 Package: reliabilitydiag
-Version: 0.1.0
+Version: 0.1.1
 Title: Reliability Diagrams Using Isotonic Regression
-Description: This package implements reliability diagrams via the CORP approach,
+Description: Checking the reliability of predictions via the CORP approach,
     which generates provably statistically Consistent, Optimally binned, and
-    Reproducible reliability diagrams in an automated way.
+    Reproducible reliability diagrams.
 Authors@R: c(
     person(given = "Timo",
            family = "Dimitriadis",
@@ -33,4 +33,3 @@ Imports:
 Suggests:
     knitr,
     rmarkdown
-VignetteBuilder: knitr
