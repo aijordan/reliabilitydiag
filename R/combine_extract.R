@@ -22,8 +22,6 @@
 #' r1
 #' c(r1, reliabilitydiag(Logistic = precip_Niamey_2016$Logistic, y = Y))
 #'
-#' @importFrom vctrs vec_as_names
-#'
 #' @export
 c.reliabilitydiag <- function(...,
                               tol = sqrt(.Machine$double.eps),

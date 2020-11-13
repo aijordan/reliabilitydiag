@@ -149,7 +149,6 @@ plot.reliabilitydiag <- function(x, ...) {
 ggplot2::autoplot
 
 #' @rdname plot.reliabilitydiag
-#' @importFrom ggExtra ggMarginal
 #'
 #' @export
 autoplot.reliabilitydiag <- function(object,
