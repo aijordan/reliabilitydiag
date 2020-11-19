@@ -21,9 +21,7 @@
 #' For a detailed description of the four prediction methods, see Vogel et al (2020).
 #'
 #' @source
-#' If you are using the data set, please cite:
-#'
-#' Vogel P, Knippertz P, Gneiting T, Fink AH, Klar M, Schlueter A (2020), Statistical forecasts for the occurrence of precipitation outperform global models over northern tropical Africa. Preprint, \url{https://doi.org/10.1002/essoar.10502501.1}.
+#' Vogel P, Knippertz P, Gneiting T, Fink AH, Klar M, Schlueter A (2020). "Statistical forecasts for the occurrence of precipitation outperform global models over northern tropical Africa." Preprint, \url{https://doi.org/10.1002/essoar.10502501.1}.
 #'
 #' This data set contains modified historic products
 #' from the European Center for Medium-Range Weather Forecasts

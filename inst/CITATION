@@ -1,4 +1,4 @@
-citHeader("To cite RelDiag in publications use:")
+citHeader("To cite reliabilitydiag in publications use:")
 
 bibentry(
   bibtype    = "Unpublished",
@@ -8,5 +8,28 @@ diagrams and score decompositions revisited",
                person("Tilmann", "Gneiting"),
                person(c("Alexander", "I."), "Jordan")),
   year     = "2020",
-  note     = "arXiv:2008.03033"
+  note     = "Preprint, arXiv:2008.03033"
+)
+
+
+citEntry(
+  entry        = "Unpublished",
+  title        = "Statistical forecasts for the occurrence of precipitation
+                  outperform global models over northern tropical Africa",
+  author       = c(person("Peter", "Vogel"),
+                   person("Peter", "Knippertz"),
+                   person("Tilmann", "Gneiting"),
+                   person("Andreas H.", "Fink"),
+                   person("Manuel", "Klar"),
+                   person("Andreas", "Schlueter")),
+  year         = "2020",
+  note         = "Preprint",
+  doi          = "10.1002/essoar.10502501.1",
+
+  textVersion  =
+  paste("Vogel P, Knippertz P, Gneiting T, Fink AH, Klar M, Schlueter A (2020).",
+        '"Statistical forecasts for the occurrence of precipitation outperform global models over northern tropical Africa."',
+        "Preprint, doi:10.1002/essoar.10502501.1."),
+
+  header = "If you use the data set precip_Niamey_2016 please cite:"
 )

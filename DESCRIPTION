@@ -1,9 +1,10 @@
 Package: reliabilitydiag
-Version: 0.1.2
+Version: 0.1.3
 Title: Reliability Diagrams Using Isotonic Regression
 Description: Checking the reliability of predictions via the CORP approach,
-    which generates provably statistically Consistent, Optimally binned, and
-    Reproducible reliability diagrams.
+    which generates provably statistically 'C'onsistent, 'O'ptimally binned, and
+    'R'eproducible reliability diagrams using the 'P'ool-adjacent-violators
+    algorithm. See Dimitriadis, Gneiting, Jordan (2020) <arXiv:2008.03033>.
 Authors@R: c(
     person(given = "Timo",
            family = "Dimitriadis",

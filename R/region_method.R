@@ -52,9 +52,9 @@ continuous_asymptotics <- function(df_pav, df_bins, region.level, region.positio
       method = "continuous_asymptotics",
       position = region.position,
       tmp = ({{ x0 }} * (1 - {{ x0 }}) * !!CEP_prime / !!bde_at_x) %>%
-        `*`(4 / nrow(df_pav)) %>%
-        `^`(1 / 3) %>%
-        `*`(qchern(0.5 + 0.5 * region.level)),
+        magrittr::multiply_by(4 / nrow(df_pav)) %>%
+        magrittr::raise_to_power(1 / 3) %>%
+        magrittr::multiply_by(qchern(0.5 + 0.5 * region.level)),
       lower = pmax(0, {{ x0 }} - .data$tmp) %>%
         bound_correction(.data$x, .data$CEP_pav, region.position),
       upper = pmin(1, {{ x0 }} + .data$tmp) %>%
