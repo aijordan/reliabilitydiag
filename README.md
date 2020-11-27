@@ -1,6 +1,12 @@
 
 # reliabilitydiag
 
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/aijordan/reliabilitydiag/workflows/R-CMD-check/badge.svg)](https://github.com/aijordan/reliabilitydiag/actions)
+<!-- badges: end -->
+
 ## Reliability Diagrams Using Isotonic Regression
 
 Checking the reliability of predictions via the CORP approach, which
