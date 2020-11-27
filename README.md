@@ -1,9 +1,14 @@
 
 # reliabilitydiag
 
-This package implements reliability diagrams via the CORP approach,
-which generates provably statistically Consistent, Optimally binned, and
-Reproducible reliability diagrams in an automated way.
+## Reliability Diagrams Using Isotonic Regression
+
+Checking the reliability of predictions via the CORP approach, which
+generates provably statistically **C**onsistent, **O**ptimally binned,
+and **R**eproducible reliability diagrams using the
+**P**ool-adjacent-violators algorithm. See Dimitriadis, Gneiting, Jordan
+(2020), available at
+[arXiv:2008.03033](https://arxiv.org/abs/2008.03033).
 
 CORP is based on non-parametric isotonic regression and implemented via
 the Pool-adjacent-violators (PAV) algorithm - essentially, the CORP
@@ -15,8 +20,20 @@ score decomposition that generalizes to any proper scoring rule.
 
 ## Installation
 
+reliabilitydiag is available on [The Comprehensive R Archive Network
+(CRAN)](https://cran.r-project.org/).
+
 ``` r
-# Install development version from GitHub
+install.packages("reliabilitydiag")
+```
+
+### Development version
+
+The most current version including bug fixes and new features is
+available from GitHub.
+
+``` r
+# install.packages("devtools")
 devtools::install_github("aijordan/reliabilitydiag")
 ```
 
