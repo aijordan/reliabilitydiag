@@ -12,9 +12,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Reliability Diagrams Using Isotonic Regression">
-<meta property="og:description" content="This package implements reliability diagrams via the CORP approach,
+<meta property="og:description" content="Checking the reliability of predictions via the CORP approach,
     which generates provably statistically Consistent, Optimally binned, and
-    Reproducible reliability diagrams in an automated way.">
+    Reproducible reliability diagrams using the Pool-adjacent-violators
+    algorithm. See Dimitriadis, Gneiting, Jordan (2020) &lt;arXiv:2008.03033&gt;.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -33,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">reliabilitydiag</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -71,31 +72,45 @@
 <div id="reliabilitydiag" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#reliabilitydiag" class="anchor"></a>reliabilitydiag</h1></div>
-<p>This package implements reliability diagrams via the CORP approach, which generates provably statistically Consistent, Optimally binned, and Reproducible reliability diagrams in an automated way.</p>
+<!-- badges: start -->
+
+<div id="reliability-diagrams-using-isotonic-regression" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reliability-diagrams-using-isotonic-regression" class="anchor"></a>Reliability Diagrams Using Isotonic Regression</h2>
+<p>Checking the reliability of predictions via the CORP approach, which generates provably statistically <strong>C</strong>onsistent, <strong>O</strong>ptimally binned, and <strong>R</strong>eproducible reliability diagrams using the <strong>P</strong>ool-adjacent-violators algorithm. See Dimitriadis, Gneiting, Jordan (2020), available at <a href="https://arxiv.org/abs/2008.03033">arXiv:2008.03033</a>.</p>
 <p>CORP is based on non-parametric isotonic regression and implemented via the Pool-adjacent-violators (PAV) algorithm - essentially, the CORP reliability diagram shows the graph of the PAV- (re)calibrated forecast probabilities. The CORP approach allows for uncertainty quantification via either resampling techniques or asymptotic theory, furnishes a new numerical measure of miscalibration, and provides a CORP based Brier score decomposition that generalizes to any proper scoring rule.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># Install development version from GitHub</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"aijordan/reliabilitydiag"</span><span class="op">)</span></pre></div>
+<p>reliabilitydiag is available on <a href="https://cran.r-project.org/package=reliabilitydiag">The Comprehensive R Archive Network (CRAN)</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"reliabilitydiag"</span><span class="op">)</span></code></pre></div>
+<div id="development-version" class="section level3">
+<h3 class="hasAnchor">
+<a href="#development-version" class="anchor"></a>Development version</h3>
+<p>The most current version including bug fixes and new features is available from GitHub.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"aijordan/reliabilitydiag"</span><span class="op">)</span></code></pre></div>
+</div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aijordan/reliabilitydiag/">reliabilitydiag</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aijordan/reliabilitydiag/">reliabilitydiag</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"precip_Niamey_2016"</span>, package <span class="op">=</span> <span class="st">"reliabilitydiag"</span><span class="op">)</span>
 
 <span class="va">X</span> <span class="op">&lt;-</span> <span class="va">precip_Niamey_2016</span><span class="op">$</span><span class="va">EMOS</span>
 <span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">precip_Niamey_2016</span><span class="op">$</span><span class="va">obs</span>
-<span class="fu"><a href="reference/reliabilitydiag.html">reliabilitydiag</a></span><span class="op">(</span>EMOS <span class="op">=</span> <span class="va">X</span>, y <span class="op">=</span> <span class="va">Y</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="reference/reliabilitydiag.html">reliabilitydiag</a></span><span class="op">(</span>EMOS <span class="op">=</span> <span class="va">X</span>, y <span class="op">=</span> <span class="va">Y</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png"><!-- --></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#&gt; 'brier' score decomposition (see also ?summary.reliabilitydiag)</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; # A tibble: 1 x 5</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt;   forecast mean_score miscalibration discrimination uncertainty</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; 1 EMOS          0.232         0.0183         0.0305       0.244</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#&gt; 'brier' score decomposition (see also ?summary.reliabilitydiag)</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; # A tibble: 1 x 5</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   forecast mean_score miscalibration discrimination uncertainty</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; 1 EMOS          0.232         0.0183         0.0305       0.244</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -104,6 +119,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=reliabilitydiag">https://​cloud.r-project.org/​package=reliabilitydiag</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/aijordan/reliabilitydiag/">https://​github.com/​aijordan/​reliabilitydiag/​</a>
 </li>
 </ul>
@@ -111,9 +128,7 @@
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
 </ul>
 </div>
 <div class="citation">
@@ -130,7 +145,14 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=reliabilitydiag"><img src="https://www.r-pkg.org/badges/version/reliabilitydiag" alt="CRAN status"></a></li>
+<li><a href="https://github.com/aijordan/reliabilitydiag/actions"><img src="https://github.com/aijordan/reliabilitydiag/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
