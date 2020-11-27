@@ -21,7 +21,7 @@ score decomposition that generalizes to any proper scoring rule.
 ## Installation
 
 reliabilitydiag is available on [The Comprehensive R Archive Network
-(CRAN)](https://cran.r-project.org/).
+(CRAN)](https://cran.r-project.org/package=reliabilitydiag).
 
 ``` r
 install.packages("reliabilitydiag")

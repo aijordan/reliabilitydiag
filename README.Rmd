@@ -23,7 +23,7 @@ CORP is based on non-parametric isotonic regression and implemented via the Pool
 
 ## Installation
 
-reliabilitydiag is available on [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/).
+reliabilitydiag is available on [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/package=reliabilitydiag).
 
 ```{r, eval = FALSE}
 install.packages("reliabilitydiag")
