@@ -4,7 +4,7 @@ Title: Reliability Diagrams Using Isotonic Regression
 Description: Checking the reliability of predictions via the CORP approach,
     which generates provably statistically 'C'onsistent, 'O'ptimally binned, and
     'R'eproducible reliability diagrams using the 'P'ool-adjacent-violators
-    algorithm. See Dimitriadis, Gneiting, Jordan (2020) <arXiv:2008.03033>.
+    algorithm. See Dimitriadis, Gneiting, Jordan (2021) <doi:10.1073/pnas.2016191118>.
 Authors@R: c(
     person(given = "Timo",
            family = "Dimitriadis",
