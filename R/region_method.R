@@ -115,9 +115,20 @@ resampling <- function(df.pava, df_bins, region.level, region.position, n.boot, 
       ) %>%
       dplyr::distinct() %>%
       dplyr::left_join(df.CB, ., by = "x") %>%
-      with(., approx(x, CEP_pav.y, xout = x)$y)
+      with(.,
+           if (length(x) == 1L) {
+             CEP_pav.y
+           } else {
+             approx(x, CEP_pav.y, xout = x)$y
+           })
   }) %>%
-    apply(1, stats::quantile, 0.5 + c(-0.5, 0.5) * region.level, TRUE) %>%
+    (function(X) {
+      if (!is.array(X)) {
+        matrix(stats::quantile(X, 0.5 + c(-0.5, 0.5) * region.level, TRUE))
+      } else {
+        apply(X, 1, stats::quantile, 0.5 + c(-0.5, 0.5) * region.level, TRUE)
+      }
+    }) %>%
     (function(bounds) dplyr::mutate(
       df.CB,
       level = region.level,

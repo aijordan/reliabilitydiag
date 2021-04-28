@@ -1,5 +1,5 @@
 Package: reliabilitydiag
-Version: 0.1.3
+Version: 0.1.4
 Title: Reliability Diagrams Using Isotonic Regression
 Description: Checking the reliability of predictions via the CORP approach,
     which generates provably statistically 'C'onsistent, 'O'ptimally binned, and
