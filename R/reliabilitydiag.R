@@ -140,6 +140,10 @@
 #'  \code{\link{[.reliabilitydiag}},
 #'  \code{\link{plot.reliabilitydiag}}.
 #'
+#'  See \code{\link{summary.reliabilitydiag}} for a decomposition of
+#'  predictive performance into miscalibration,
+#'  discrimination, and uncertainty.
+#'
 #' @examples
 #' data("precip_Niamey_2016", package = "reliabilitydiag")
 #'

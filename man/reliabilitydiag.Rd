@@ -214,4 +214,8 @@ identical(r2, r3)
 \code{\link{c.reliabilitydiag}},
  \code{\link{[.reliabilitydiag}},
  \code{\link{plot.reliabilitydiag}}.
+
+ See \code{\link{summary.reliabilitydiag}} for a decomposition of
+ predictive performance into miscalibration,
+ discrimination, and uncertainty.
 }

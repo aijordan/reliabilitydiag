@@ -1,8 +1,11 @@
-#' Summarizing reliability diagrams
+#' Decomposing scores into miscalibration, discrimination and uncertainty
 #'
-#' A summary of a reliability diagram in terms of quantitative measures of
-#' predictive performance, miscalibration, discrimination,
-#' and uncertainty.
+#' An object of class \code{reliabilitydiag} contains the observations, the
+#' original forecasts, and recalibrated forecasts given by isotonic regression.
+#' The function \code{summary.reliabilitydiag} calculates quantitative measures
+#' of predictive performance, miscalibration, discrimination,
+#' and uncertainty, for each of the prediction methods in relation to their
+#' recalibrated version.
 #'
 #' Predictive performance is measured by the mean score of the original
 #' forecast values, denoted by \eqn{S}.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.R
 \name{summary.reliabilitydiag}
 \alias{summary.reliabilitydiag}
-\title{Summarizing reliability diagrams}
+\title{Decomposing scores into miscalibration, discrimination and uncertainty}
 \usage{
 \method{summary}{reliabilitydiag}(object, ..., score = "brier")
 }
@@ -32,9 +32,12 @@ tibble (see \code{\link[tibble:tibble]{tibble::tibble()}}) with columns:
  }
 }
 \description{
-A summary of a reliability diagram in terms of quantitative measures of
-predictive performance, miscalibration, discrimination,
-and uncertainty.
+An object of class \code{reliabilitydiag} contains the observations, the
+original forecasts, and recalibrated forecasts given by isotonic regression.
+The function \code{summary.reliabilitydiag} calculates quantitative measures
+of predictive performance, miscalibration, discrimination,
+and uncertainty, for each of the prediction methods in relation to their
+recalibrated version.
 }
 \details{
 Predictive performance is measured by the mean score of the original
