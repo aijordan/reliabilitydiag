@@ -43,7 +43,7 @@
 #' @details
 #' \code{plot} always sends a plot to a graphics device, wheres \code{autoplot}
 #' behaves as any \code{ggplot() + layer()} combination. That means, customized
-#' plots should be created using \code{autoplot}.
+#' plots should be created using \code{autoplot} and \code{autolayer}.
 #'
 #' Three sets of default parameter values are used:
 #' \itemize{
@@ -133,6 +133,10 @@
 #' p <- ggExtra::ggMarginal(p, type = "histogram")
 #' print(p, newpage = TRUE)
 #'
+#' # the order of the layers can be changed
+#' autoplot(rr, colour = "black", params_ribbon = NA) +
+#'   autolayer(rr, params_ribbon = list(fill = "red", alpha = .5))
+#'
 #' @name plot.reliabilitydiag
 NULL
 
@@ -147,6 +151,10 @@ plot.reliabilitydiag <- function(x, ...) {
 #' @importFrom ggplot2 autoplot
 #' @export
 ggplot2::autoplot
+
+#' @importFrom ggplot2 autolayer
+#' @export
+ggplot2::autolayer
 
 #' @rdname plot.reliabilitydiag
 #'
@@ -165,10 +173,81 @@ autoplot.reliabilitydiag <- function(object,
                                      params_CEPsegment = NULL,
                                      params_CEPpoint = NULL) {
   r <- object
+  type1 <- match.arg(type)
+  if (length(r) > 1L) {
+    type1 <- ""
+  }
+
+  # loading default values for params_ggMarginal
+  if (is.null(params_ggMarginal)) {
+    params_ggMarginal <- switch(
+      type1,
+      miscalibration = NA,
+      discrimination = list(
+        type = "histogram",
+        xparams = list(bins = 100, fill = "grey"),
+        yparams = list(bins = 100, fill = colour)
+      ),
+      NA)
+  }
+
+  # create ggplot object
+  p.reldiag <- ggplot2::ggplot() +
+    ggplot2::xlab("Forecast value") +
+    ggplot2::ylab("CEP") +
+    ggplot2::theme_bw() +
+    ggplot2::theme(aspect.ratio = 1) +
+    autolayer.reliabilitydiag(
+      object = object,
+      ...,
+      type = type,
+      colour = colour,
+      params_histogram = params_histogram,
+      params_ggMarginal = params_ggMarginal,
+      params_ribbon = params_ribbon,
+      params_diagonal = params_diagonal,
+      params_vsegment = params_vsegment,
+      params_hsegment = params_hsegment,
+      params_CEPline = params_CEPline,
+      params_CEPsegment = params_CEPsegment,
+      params_CEPpoint = params_CEPpoint
+    )
+
+  # return plot object
+  if (!isTRUE(is.na(params_ggMarginal))) {
+    do.call(
+      what = ggExtra::ggMarginal,
+      args = c(
+        list(p = p.reldiag),
+        params_ggMarginal
+      ))
+  } else {
+    p.reldiag
+  }
+}
+
+#' @rdname plot.reliabilitydiag
+#'
+#' @export
+autolayer.reliabilitydiag <- function(object,
+                                      ...,
+                                      type = c("miscalibration", "discrimination"),
+                                      colour = "red",
+                                      params_histogram = NA,
+                                      params_ggMarginal = NA,
+                                      params_ribbon = NA,
+                                      params_diagonal = NA,
+                                      params_vsegment = NA,
+                                      params_hsegment = NA,
+                                      params_CEPline = NA,
+                                      params_CEPsegment = NA,
+                                      params_CEPpoint = NA) {
+  r <- object
   type <- match.arg(type)
   if (length(r) > 1L) {
     type <- ""
   }
+  layerlist <- list()
 
   # loading default values
   if (is.null(params_histogram)) {
@@ -176,17 +255,6 @@ autoplot.reliabilitydiag <- function(object,
       type,
       miscalibration = list(yscale = 0.2, colour = "black", fill = NA),
       discrimination = NA,
-      NA)
-  }
-  if (is.null(params_ggMarginal)) {
-    params_ggMarginal <- switch(
-      type,
-      miscalibration = NA,
-      discrimination = list(
-        type = "histogram",
-        xparams = list(bins = 100, fill = "grey"),
-        yparams = list(bins = 100, fill = colour)
-      ),
       NA)
   }
   if (is.null(params_ribbon)) {
@@ -250,13 +318,6 @@ autoplot.reliabilitydiag <- function(object,
       NA)
   }
 
-  # initialize plot object
-  p.reldiag <- ggplot2::ggplot() +
-    ggplot2::xlab("Forecast value") +
-    ggplot2::ylab("CEP") +
-    ggplot2::theme_bw() +
-    ggplot2::theme(aspect.ratio = 1)
-
   # add layers
   if (!isTRUE(is.na(params_histogram))) {
     ### Add a Histogram
@@ -275,7 +336,8 @@ autoplot.reliabilitydiag <- function(object,
     } else {
       yscale <- 0.2
     }
-    p.reldiag <- p.reldiag +
+    layerlist <- c(
+      layerlist,
       do.call(
         what = ggplot2::geom_histogram,
         args = c(
@@ -283,11 +345,12 @@ autoplot.reliabilitydiag <- function(object,
           list(mapping = ggplot2::aes(
             x = .data$x, y = yscale * ggplot2::after_stat(.data$ncount))),
           params_histogram
-        ))
+        )))
   }
   if (!isTRUE(is.na(params_ribbon))) {
     ### Add ribbon for consistency/confidence regions
-    p.reldiag <- p.reldiag +
+    layerlist <- c(
+      layerlist,
       do.call(
         what = ggplot2::geom_ribbon,
         args = c(
@@ -295,21 +358,23 @@ autoplot.reliabilitydiag <- function(object,
           list(mapping = ggplot2::aes(
             x = .data$x, ymin = .data$lower, ymax = .data$upper)),
           params_ribbon
-        ))
+        )))
   }
   if (!isTRUE(is.na(params_diagonal))) {
     ### Add the diagonal line
-    p.reldiag <- p.reldiag +
+    layerlist <- c(
+      layerlist,
       do.call(
         what = ggplot2::geom_segment,
         args = c(
           list(data = data.frame(1)),
           list(mapping = ggplot2::aes(x = 0, y = 0, xend = 1, yend = 1)),
           params_diagonal
-        ))
+        )))
   }
   if (!isTRUE(is.na(params_vsegment))) {
-    p.reldiag <- p.reldiag +
+    layerlist <- c(
+      layerlist,
       do.call(
         what = ggplot2::geom_segment,
         args = c(
@@ -321,9 +386,11 @@ autoplot.reliabilitydiag <- function(object,
             yend = max(.data$CEP_pav)
           )),
           params_vsegment))
+    )
   }
   if (!isTRUE(is.na(params_hsegment))) {
-    p.reldiag <- p.reldiag +
+    layerlist <- c(
+      layerlist,
       do.call(
         what = ggplot2::geom_segment,
         args = c(
@@ -335,11 +402,13 @@ autoplot.reliabilitydiag <- function(object,
             yend = mean(.data$y)
           )),
           params_hsegment))
+    )
   }
   if (!isTRUE(is.na(params_CEPline))) {
     ### Plot the estimated CEP
     if (identical(length(r), 1L)) {
-      p.reldiag <- p.reldiag +
+      layerlist <- c(
+        layerlist,
         do.call(
           what = ggplot2::geom_line,
           args = c(
@@ -349,8 +418,10 @@ autoplot.reliabilitydiag <- function(object,
               values_to = "x")),
             list(mapping = ggplot2::aes(x = .data$x, y = .data$CEP_pav)),
             params_CEPline))
+      )
     } else if (length(r) > 1L) {
-      p.reldiag <- p.reldiag +
+      layerlist <- c(
+        layerlist,
         do.call(
           what = ggplot2::geom_line,
           args = c(
@@ -364,11 +435,13 @@ autoplot.reliabilitydiag <- function(object,
             list(mapping = ggplot2::aes(
               x = .data$x, y = .data$CEP_pav, col = .data$Forecast)),
             params_CEPline))
+      )
     }
   }
   if (!isTRUE(is.na(params_CEPsegment))) {
-    ### Add thick line for continuous forecasts
-    p.reldiag <- p.reldiag +
+    ### Add horizontal segments for continuous forecasts
+    layerlist <- c(
+      layerlist,
       do.call(
         what = ggplot2::geom_segment,
         args = c(
@@ -378,9 +451,11 @@ autoplot.reliabilitydiag <- function(object,
             y = .data$CEP_pav, yend = .data$CEP_pav)),
           params_CEPsegment
         ))
+    )
   }
   if (!isTRUE(is.na(params_CEPpoint))) {
-    p.reldiag <- p.reldiag +
+    layerlist <- c(
+      layerlist,
       do.call(
         what = ggplot2::geom_point,
         args = c(
@@ -394,17 +469,8 @@ autoplot.reliabilitydiag <- function(object,
           }),
           list(mapping = ggplot2::aes(x = .data$x, y = .data$CEP_pav)),
           params_CEPpoint))
+    )
   }
 
-  # return plot object
-  if (!isTRUE(is.na(params_ggMarginal))) {
-    do.call(
-      what = ggExtra::ggMarginal,
-      args = c(
-        list(p = p.reldiag),
-        params_ggMarginal
-      ))
-  } else {
-    p.reldiag
-  }
+  layerlist
 }

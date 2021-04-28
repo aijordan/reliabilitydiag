@@ -3,6 +3,7 @@
 \name{plot.reliabilitydiag}
 \alias{plot.reliabilitydiag}
 \alias{autoplot.reliabilitydiag}
+\alias{autolayer.reliabilitydiag}
 \title{Plotting reliability diagram objects}
 \usage{
 \method{plot}{reliabilitydiag}(x, ...)
@@ -21,6 +22,22 @@
   params_CEPline = NULL,
   params_CEPsegment = NULL,
   params_CEPpoint = NULL
+)
+
+\method{autolayer}{reliabilitydiag}(
+  object,
+  ...,
+  type = c("miscalibration", "discrimination"),
+  colour = "red",
+  params_histogram = NA,
+  params_ggMarginal = NA,
+  params_ribbon = NA,
+  params_diagonal = NA,
+  params_vsegment = NA,
+  params_hsegment = NA,
+  params_CEPline = NA,
+  params_CEPsegment = NA,
+  params_CEPpoint = NA
 )
 }
 \arguments{
@@ -82,7 +99,7 @@ prediction methods that issue probability forecasts.
 \details{
 \code{plot} always sends a plot to a graphics device, wheres \code{autoplot}
 behaves as any \code{ggplot() + layer()} combination. That means, customized
-plots should be created using \code{autoplot}.
+plots should be created using \code{autoplot} and \code{autolayer}.
 
 Three sets of default parameter values are used:
 \itemize{
@@ -171,5 +188,9 @@ p <- autoplot(r["EMOS"], type = "discrimination", params_ggMarginal = NA) +
   ggplot2::ggtitle("Discrimination diagram for EMOS method")
 p <- ggExtra::ggMarginal(p, type = "histogram")
 print(p, newpage = TRUE)
+
+# the order of the layers can be changed
+autoplot(rr, colour = "black", params_ribbon = NA) +
+  autolayer(rr, params_ribbon = list(fill = "red", alpha = .5))
 
 }
