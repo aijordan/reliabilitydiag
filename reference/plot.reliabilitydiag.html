@@ -73,7 +73,7 @@ prediction methods that issue probability forecasts." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reliabilitydiag</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -137,6 +137,23 @@ prediction methods that issue probability forecasts.</p>
   params_CEPline <span class='op'>=</span> <span class='cn'>NULL</span>,
   params_CEPsegment <span class='op'>=</span> <span class='cn'>NULL</span>,
   params_CEPpoint <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for reliabilitydiag</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autolayer.html'>autolayer</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>...</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"miscalibration"</span>, <span class='st'>"discrimination"</span><span class='op'>)</span>,
+  colour <span class='op'>=</span> <span class='st'>"red"</span>,
+  params_histogram <span class='op'>=</span> <span class='cn'>NA</span>,
+  params_ggMarginal <span class='op'>=</span> <span class='cn'>NA</span>,
+  params_ribbon <span class='op'>=</span> <span class='cn'>NA</span>,
+  params_diagonal <span class='op'>=</span> <span class='cn'>NA</span>,
+  params_vsegment <span class='op'>=</span> <span class='cn'>NA</span>,
+  params_hsegment <span class='op'>=</span> <span class='cn'>NA</span>,
+  params_CEPline <span class='op'>=</span> <span class='cn'>NA</span>,
+  params_CEPsegment <span class='op'>=</span> <span class='cn'>NA</span>,
+  params_CEPpoint <span class='op'>=</span> <span class='cn'>NA</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -227,7 +244,7 @@ this layer highlights the CEP estimate only for actually observed forecast value
 
     <p><code>plot</code> always sends a plot to a graphics device, wheres <code>autoplot</code>
 behaves as any <code>ggplot() + layer()</code> combination. That means, customized
-plots should be created using <code>autoplot</code>.</p>
+plots should be created using <code>autoplot</code> and <code>autolayer</code>.</p>
 <p>Three sets of default parameter values are used:</p><ul>
 <li><p>If multiple predictions
   methods are compared, then only the most necessary information to determine
@@ -313,6 +330,10 @@ plots should be created using <code>autoplot</code>.</p>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>ggExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggExtra/man/ggMarginal.html'>ggMarginal</a></span><span class='op'>(</span><span class='va'>p</span>, type <span class='op'>=</span> <span class='st'>"histogram"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>p</span>, newpage <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='plot.reliabilitydiag-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># the order of the layers can be changed</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>rr</span>, colour <span class='op'>=</span> <span class='st'>"black"</span>, params_ribbon <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autolayer.html'>autolayer</a></span><span class='op'>(</span><span class='va'>rr</span>, params_ribbon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"red"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plot.reliabilitydiag-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
