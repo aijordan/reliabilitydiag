@@ -16,7 +16,7 @@ generates provably statistically **C**onsistent, **O**ptimally binned,
 and **R**eproducible reliability diagrams using the
 **P**ool-adjacent-violators algorithm. See Dimitriadis, Gneiting, Jordan
 (2020), available at
-[arXiv:2008.03033](https://arxiv.org/abs/2008.03033).
+[doi:10.1073/pnas.2016191118](https://doi.org/10.1073/pnas.2016191118).
 
 CORP is based on non-parametric isotonic regression and implemented via
 the Pool-adjacent-violators (PAV) algorithm - essentially, the CORP

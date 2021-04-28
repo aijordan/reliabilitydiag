@@ -1,19 +1,22 @@
 citHeader("To cite reliabilitydiag in publications use:")
 
 bibentry(
-  bibtype    = "Unpublished",
-  title    = "Evaluating probabilistic classifiers: Reliability
-diagrams and score decompositions revisited",
+  bibtype  = "Article",
+  title    = "Stable reliability diagrams for probabilistic classifiers",
   author   = c(person("Timo", "Dimitriadis"),
                person("Tilmann", "Gneiting"),
                person(c("Alexander", "I."), "Jordan")),
-  year     = "2020",
-  note     = "Preprint, arXiv:2008.03033"
+  year     = "2021",
+  doi      = "10.1073/pnas.2016191118",
+  journal  = "Proceedings of the National Academy of Sciences",
+  volume   = 118,
+  number   = 8,
+  pages    = "e2016191118"
 )
 
 
 citEntry(
-  entry        = "Unpublished",
+  entry        = "Article",
   title        = "Statistical forecasts for the occurrence of precipitation
                   outperform global models over northern tropical Africa",
   author       = c(person("Peter", "Vogel"),
@@ -22,14 +25,16 @@ citEntry(
                    person("Andreas H.", "Fink"),
                    person("Manuel", "Klar"),
                    person("Andreas", "Schlueter")),
-  year         = "2020",
-  note         = "Preprint",
-  doi          = "10.1002/essoar.10502501.1",
-
+  year         = "2021",
+  doi          = "10.1029/2020GL091022",
+  journal      = "Geophysical Research Letters",
+  volume       = 48,
+  number       = 3,
+  pages        = "e2020GL091022",
   textVersion  =
-  paste("Vogel P, Knippertz P, Gneiting T, Fink AH, Klar M, Schlueter A (2020).",
+  paste("Vogel P, Knippertz P, Gneiting T, Fink AH, Klar M, Schlueter A (2021).",
         '"Statistical forecasts for the occurrence of precipitation outperform global models over northern tropical Africa."',
-        "Preprint, doi:10.1002/essoar.10502501.1."),
-
+        "Geophysical Research Letters, 48 (3) e2020GL091022.",
+        "doi: 10.1029/2020GL091022"),
   header = "If you use the data set precip_Niamey_2016 please cite:"
 )

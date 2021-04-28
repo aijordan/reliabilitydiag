@@ -18,7 +18,7 @@ A data frame with 92 rows and 6 variables:
 }
 }
 \source{
-Vogel P, Knippertz P, Gneiting T, Fink AH, Klar M, Schlueter A (2020). "Statistical forecasts for the occurrence of precipitation outperform global models over northern tropical Africa." Preprint, \url{https://doi.org/10.1002/essoar.10502501.1}.
+Vogel P, Knippertz P, Gneiting T, Fink AH, Klar M, Schlueter A (2021). "Statistical forecasts for the occurrence of precipitation outperform global models over northern tropical Africa." Geophysical Research Letters, 48, e2020GL091022. \url{https://doi.org/10.1029/2020GL091022}.
 
 This data set contains modified historic products
 from the European Center for Medium-Range Weather Forecasts
@@ -38,6 +38,6 @@ A data set containing 24-hour ahead daily probability of precipitation
 forecasts of four forecasting methods and corresponding observations of
 precipitation occurrence.
 
-For a detailed description of the four prediction methods, see Vogel et al (2020).
+For a detailed description of the four prediction methods, see Vogel et al (2021).
 }
 \keyword{datasets}
