@@ -248,6 +248,17 @@ autolayer.reliabilitydiag <- function(object,
     type <- ""
   }
   layerlist <- list()
+  cases <- quote(
+    dplyr::bind_rows(lapply(r, function(l) l$cases), .id = "Forecast"))
+  bins <- quote(
+    dplyr::bind_rows(lapply(r, function(l){
+      tidyr::pivot_longer(
+        l$bins,
+        cols = dplyr::all_of(c("x_min", "x_max")),
+        values_to = "x")
+    }), .id = "Forecast"))
+  regions <- quote(
+    dplyr::bind_rows(lapply(r, function(l) l$regions), .id = "Forecast"))
 
   # loading default values
   if (is.null(params_histogram)) {
@@ -324,11 +335,15 @@ autolayer.reliabilitydiag <- function(object,
     # possible 'breaks' specifications in ggplot2::geom_histogram
     breaks_specs <- c("breaks", "binwidth", "bins", "center", "boundary")
     if (!any(breaks_specs %in% names(params_histogram))) {
-      # see utils.R
-      params_histogram$breaks <- choose_breaks(
-        x = r[[1L]]$cases$x,
-        xtype = r[[1L]]$xinfo$type
-      )
+      if (length(r) == 1L) {
+        # see utils.R
+        params_histogram$breaks <- choose_breaks(
+          x = r[[1L]]$cases$x,
+          xtype = r[[1L]]$xinfo$type
+        )
+      } else if (length(r) > 1L) {
+        params_histogram$binwidth <- width_fd
+      }
     }
     if (i <- "yscale" %in% names(params_histogram)) {
       yscale <- params_histogram[[which(i)]]
@@ -336,12 +351,13 @@ autolayer.reliabilitydiag <- function(object,
     } else {
       yscale <- 0.2
     }
+    cases <- eval(cases)
     layerlist <- c(
       layerlist,
       do.call(
         what = ggplot2::geom_histogram,
         args = c(
-          list(data = r[[1L]]$cases),
+          list(data = cases),
           list(mapping = ggplot2::aes(
             x = .data$x, y = yscale * ggplot2::after_stat(.data$ncount))),
           params_histogram
@@ -349,12 +365,13 @@ autolayer.reliabilitydiag <- function(object,
   }
   if (!isTRUE(is.na(params_ribbon))) {
     ### Add ribbon for consistency/confidence regions
+    regions <- eval(regions)
     layerlist <- c(
       layerlist,
       do.call(
         what = ggplot2::geom_ribbon,
         args = c(
-          list(data = r[[1L]]$regions),
+          list(data = regions),
           list(mapping = ggplot2::aes(
             x = .data$x, ymin = .data$lower, ymax = .data$upper)),
           params_ribbon
@@ -373,12 +390,13 @@ autolayer.reliabilitydiag <- function(object,
         )))
   }
   if (!isTRUE(is.na(params_vsegment))) {
+    cases <- eval(cases)
     layerlist <- c(
       layerlist,
       do.call(
         what = ggplot2::geom_segment,
         args = c(
-          list(data = r[[1L]]$cases),
+          list(data = cases),
           list(mapping = ggplot2::aes(
             x = mean(.data$x),
             xend = mean(.data$x),
@@ -389,12 +407,13 @@ autolayer.reliabilitydiag <- function(object,
     )
   }
   if (!isTRUE(is.na(params_hsegment))) {
+    cases <- eval(cases)
     layerlist <- c(
       layerlist,
       do.call(
         what = ggplot2::geom_segment,
         args = c(
-          list(data = r[[1L]]$cases),
+          list(data = cases),
           list(mapping = ggplot2::aes(
             x = min(.data$x),
             xend = max(.data$x),
@@ -405,38 +424,25 @@ autolayer.reliabilitydiag <- function(object,
     )
   }
   if (!isTRUE(is.na(params_CEPline))) {
+    bins <- eval(bins)
     ### Plot the estimated CEP
-    if (identical(length(r), 1L)) {
-      layerlist <- c(
-        layerlist,
-        do.call(
-          what = ggplot2::geom_line,
-          args = c(
-            list(data = tidyr::pivot_longer(
-              r[[1L]]$bins,
-              cols = dplyr::all_of(c("x_min", "x_max")),
-              values_to = "x")),
-            list(mapping = ggplot2::aes(x = .data$x, y = .data$CEP_pav)),
-            params_CEPline))
-      )
-    } else if (length(r) > 1L) {
-      layerlist <- c(
-        layerlist,
-        do.call(
-          what = ggplot2::geom_line,
-          args = c(
-            list(data = lapply(r, function(l) {
-              tidyr::pivot_longer(
-                l$bins,
-                cols = dplyr::all_of(c("x_min", "x_max")),
-                values_to = "x")
-            }) %>%
-              dplyr::bind_rows(.id = "Forecast")),
-            list(mapping = ggplot2::aes(
-              x = .data$x, y = .data$CEP_pav, col = .data$Forecast)),
-            params_CEPline))
-      )
-    }
+    layerlist <- c(
+      layerlist,
+      do.call(
+        what = ggplot2::geom_line,
+        args = c(
+          list(data = bins),
+          list(mapping = if (length(r) == 1L) {
+            ggplot2::aes(x = .data$x, y = .data$CEP_pav)
+          } else if (length(r) > 1L) {
+            ggplot2::aes(x = .data$x, y = .data$CEP_pav,
+                         col = .data$Forecast, lty = .data$Forecast)
+          }),
+          params_CEPline)),
+      if (length(r) > 1L) {
+        ggplot2::scale_linetype_manual(values = rep(1, length(r)))
+      }
+    )
   }
   if (!isTRUE(is.na(params_CEPsegment))) {
     ### Add horizontal segments for continuous forecasts

@@ -55,6 +55,24 @@ breaks_fd <- function(x) {
     (function(n) seq(xrange[1L], xrange[2L], length.out = n + 1))
 }
 
+width_fd <- function(x) {
+  iqr <- stats::IQR(x)
+  # Use the "Freedman–Diaconis" binning rule
+  iqr <- stats::IQR(x)
+  if (iqr < sqrt(.Machine$double.eps)) {
+    # in particular, this covers the case where >75% of forecast values are 0
+    # e.g., probability of precipitation forecasts
+    # maybe that shouldn't be detected as "continuous" in the first place
+    binwidth <- 1 / 400
+  } else {
+    binwidth <- 2 * iqr / length(x)^(1 / 3)
+  }
+  xrange <- range(x)
+  round(diff(xrange) / binwidth) %>%
+    max(5) %>%
+    (function(n) diff(xrange) / n)
+}
+
 breaks_discrete <- function(x) {
   x_unique <- sort(unique(x))
   eps <- min(diff(x_unique) / 8, 0.02)
