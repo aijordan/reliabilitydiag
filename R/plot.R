@@ -343,6 +343,7 @@ autolayer.reliabilitydiag <- function(object,
         )
       } else if (length(r) > 1L) {
         params_histogram$binwidth <- width_fd
+        params_histogram$boundary <- 0
       }
     }
     if (i <- "yscale" %in% names(params_histogram)) {
