@@ -117,7 +117,8 @@ Three sets of default parameter values are used:
 
 Setting any of the \code{params_*} arguments to \code{NA} disables that layer.
 
-Default parameter values if \code{length(object) > 1}:
+Default parameter values if \code{length(object) > 1},
+where the internal variable \code{forecast} is used as grouping variable:
 \tabular{ll}{
 \code{params_histogram} \tab \code{NA} \cr
 \code{params_ggMarginal} \tab \code{NA} \cr
@@ -164,6 +165,10 @@ r <- reliabilitydiag(
 
 # simple plotting
 plot(r)
+
+# faceting using the internal grouping variable 'forecast'
+autoplot(r) +
+  ggplot2::facet_wrap("forecast")
 
 # custom color scale for multiple prediction methods
 cols <- c(Logistic = "red", EMOS = "blue", ENS = "darkgreen", EPC = "orange")
