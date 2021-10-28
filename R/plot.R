@@ -249,16 +249,16 @@ autolayer.reliabilitydiag <- function(object,
   }
   layerlist <- list()
   cases <- quote(
-    dplyr::bind_rows(lapply(r, function(l) l$cases), .id = "Forecast"))
+    dplyr::bind_rows(lapply(r, function(l) l$cases), .id = "forecast"))
   bins <- quote(
     dplyr::bind_rows(lapply(r, function(l){
       tidyr::pivot_longer(
         l$bins,
         cols = dplyr::all_of(c("x_min", "x_max")),
         values_to = "x")
-    }), .id = "Forecast"))
+    }), .id = "forecast"))
   regions <- quote(
-    dplyr::bind_rows(lapply(r, function(l) l$regions), .id = "Forecast"))
+    dplyr::bind_rows(lapply(r, function(l) l$regions), .id = "forecast"))
 
   # loading default values
   if (is.null(params_histogram)) {
@@ -437,7 +437,7 @@ autolayer.reliabilitydiag <- function(object,
             ggplot2::aes(x = .data$x, y = .data$CEP_pav)
           } else if (length(r) > 1L) {
             ggplot2::aes(x = .data$x, y = .data$CEP_pav,
-                         col = .data$Forecast, lty = .data$Forecast)
+                         col = .data$forecast, lty = .data$forecast)
           }),
           params_CEPline)),
       if (length(r) > 1L) {
