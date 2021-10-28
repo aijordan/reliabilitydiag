@@ -55,6 +55,14 @@ breaks_fd <- function(x) {
     (function(n) seq(xrange[1L], xrange[2L], length.out = n + 1))
 }
 
+width_fd <- function(x) {
+  # Use the "Freedman–Diaconis" binning rule
+  binwidth <- 2 * stats::IQR(x) / length(x)^(1 / 3)
+  binwidth <- min(binwidth, diff(range(x)) / 5) # at least 5 bins on range of x
+  binwidth <- max(binwidth, 1 / 400) # no more than 400 bins on [0, 1]
+  1 / round(1 / binwidth) # improve alignment with the bounds of [0, 1]
+}
+
 breaks_discrete <- function(x) {
   x_unique <- sort(unique(x))
   eps <- min(diff(x_unique) / 8, 0.02)
