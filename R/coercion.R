@@ -188,6 +188,10 @@ reldiag_numeric <- function(x,
   stopifnot(identical(length(x), length(y)))
   stopifnot(isTRUE(all(x >= 0 & x <= 1)))
 
+  ord <- order(x, -y)
+  x <- x[ord]
+  y <- y[ord]
+
   if (is.null(xtype) && is.null(xvalues)) {
     xtype <- detect_xtype(x)
   } else if (!is.null(xvalues)) {
@@ -220,27 +224,26 @@ reldiag_numeric <- function(x,
   }
 
   ###
-  pav_result <- stats::isoreg(x, y)
-  red_iKnots <- with(
-    pav_result,
-    which(!duplicated(yf[iKnots], fromLast = TRUE)) %>% iKnots[.]
-  )
-  df_pav <- with(
-    pav_result,
-    tibble::tibble(
-      case_id = if (isOrd) seq_len(length(y)) else ord,
-      x = if (isOrd) x else x[ord],
-      y = if (isOrd) y else y[ord],
-      bin_id = rep.int(seq_along(red_iKnots), times = diff(c(0, red_iKnots))),
-      CEP_pav = yf
-    )
+  CEP_pav <- if (requireNamespace("monotone", quietly = TRUE)) {
+    monotone::monotone(y)
+  } else {
+    stats::isoreg(y)$yf
+  }
+  bins <- rle(CEP_pav)
+  red_iKnots <- cumsum(bins$lengths)
+  df_pav <- tibble::tibble(
+    case_id = ord,
+    x = x,
+    y = y,
+    bin_id = rep.int(seq_along(red_iKnots), times = bins$lengths),
+    CEP_pav = CEP_pav
   )
   df_bins <- tibble::tibble(
     bin_id = seq_along(red_iKnots),
-    n = diff(c(0, red_iKnots)),
-    x_min = df_pav$x[c(0, utils::head(red_iKnots,-1)) + 1],
-    x_max = df_pav$x[red_iKnots],
-    CEP_pav = df_pav$CEP_pav[red_iKnots]
+    n = bins$lengths,
+    x_min = x[c(0, utils::head(red_iKnots,-1)) + 1],
+    x_max = x[red_iKnots],
+    CEP_pav = bins$values
   )
 
   regions <- if (!do_region) {
