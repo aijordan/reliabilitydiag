@@ -89,56 +89,62 @@ discrete_asymptotics <- function(df.pava, df_bins, region.level, region.position
                   .data$n, .data$method, .data$level, .data$position)
 }
 
-resampling <- function(df.pava, df_bins, region.level, region.position, n.boot, ...)  {
-  df.CB <- df.pava %>%
+resampling <- function(df_pav, df_bins, region.level, region.position, n.boot, ...)  {
+  regions <- df_pav %>%
     dplyr::group_by(.data$x) %>%
     dplyr::summarise(
       CEP_pav = unique(.data$CEP_pav),
       n = dplyr::n(),
       .groups = "drop"
     )
-  x0 <- switch(region.position, diagonal = "x", estimate = "CEP_pav") %>%
-    rlang::sym()
-  replicate(n.boot, {
-    df.pava %>%
-      dplyr::select(.data$x, .data$CEP_pav) %>%
-      dplyr::slice_sample(., n = nrow(.), replace = TRUE) %>%
-      dplyr::mutate(y = stats::rbinom(dplyr::n(), 1, {{ x0 }})) %>%
-      with(.,
-        stats::isoreg(x, y) %>%
-          with(.,
-            tibble::tibble(
-              CEP_pav = yf,
-              x = if (isOrd) x else x[ord]
-            )
-          )
-      ) %>%
-      dplyr::distinct() %>%
-      dplyr::left_join(df.CB, ., by = "x") %>%
-      with(.,
-           if (length(x) == 1L) {
-             CEP_pav.y
-           } else {
-             approx(x, CEP_pav.y, xout = x)$y
-           })
-  }) %>%
-    (function(X) {
-      if (!is.array(X)) {
-        matrix(stats::quantile(X, 0.5 + c(-0.5, 0.5) * region.level, TRUE))
-      } else {
-        apply(X, 1, stats::quantile, 0.5 + c(-0.5, 0.5) * region.level, TRUE)
+  n.pav <- nrow(df_pav)
+  n.regions <- nrow(regions)
+  x0 <- switch(region.position,
+               diagonal = df_pav$x,
+               estimate = df_pav$CEP_pav)
+  isofit <- if (requireNamespace("monotone", quietly = TRUE)) {
+    monotone::monotone
+  } else {
+    function(y) {stats::isoreg(y)$yf}
+  }
+  bounds <-
+    replicate(n.boot, simplify = FALSE, {
+      s <- sample(n.pav, replace = TRUE)
+      x <- df_pav$x[s]
+      y <- stats::rbinom(n.pav, 1L, x0[s])
+      ord <- order(x,-y)
+      resampled_fit <-
+        data.frame(x = x[ord], CEP_pav = isofit(y[ord])) %>%
+        dplyr::distinct()
+      if (nrow(resampled_fit) == 1L) {
+        resampled_fit$CEP_pav
+      } else { # interpolate
+        dplyr::left_join(regions, resampled_fit, by = "x") %>%
+          with(., approx(x, CEP_pav.y, xout = x)$y)
       }
     }) %>%
-    (function(bounds) dplyr::mutate(
-      df.CB,
-      level = region.level,
-      method = paste0("resampling_", n.boot),
-      position = region.position,
-      lower = bound_correction(bounds[1, ], .data$x, .data$CEP_pav, region.position),
-      upper = bound_correction(bounds[2, ], .data$x, .data$CEP_pav, region.position)
-    )) %>%
-    dplyr::select(.data$x, .data$lower, .data$upper,
-                  .data$n, .data$method, .data$level, .data$position)
+    unlist() %>%
+    matrix(nrow = n.regions, ncol = n.boot) %>%
+    apply(1L, stats::quantile,
+      probs = 0.5 + c(-0.5, 0.5) * region.level,
+      na.rm = TRUE
+    ) %>%
+    apply(1L, bound_correction, simplify = FALSE,
+      x = regions$x,
+      CEP_est = regions$CEP_pav,
+      position = region.position
+    ) %>%
+    unlist() %>%
+    matrix(nrow = n.regions, ncol = 2L)
+  tibble::tibble(
+    x = regions$x,
+    lower = bounds[, 1L],
+    upper = bounds[, 2L],
+    n = regions$n,
+    method = paste0("resampling_", n.boot),
+    level = region.level,
+    position = region.position
+  )
 }
 
 restricted_resampling <- function(df.pava, df_bins, region.level, region.position, n.boot, ...) {

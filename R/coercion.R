@@ -224,7 +224,11 @@ reldiag_numeric <- function(x,
   }
 
   ###
-  CEP_pav <- monotone::monotone(y)
+  CEP_pav <- if (requireNamespace("monotone", quietly = TRUE)) {
+    monotone::monotone(y)
+  } else {
+    stats::isoreg(y)$yf
+  }
   bins <- rle(CEP_pav)
   red_iKnots <- cumsum(bins$lengths)
   df_pav <- tibble::tibble(

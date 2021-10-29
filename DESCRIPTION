@@ -31,3 +31,5 @@ Imports:
     tibble,
     vctrs,
     bde
+Suggests:
+    monotone
