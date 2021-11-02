@@ -311,7 +311,7 @@ where the internal variable <code>forecast</code> is used as grouping variable:<
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 </div><div class='img'><img src='plot.reliabilitydiag-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># faceting using the internal grouping variable 'forecast'</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span> <span class='op'>+</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>r</span>, params_ribbon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"blue"</span>, alpha <span class='op'>=</span> <span class='fl'>0.15</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='st'>"forecast"</span><span class='op'>)</span>
 </div><div class='img'><img src='plot.reliabilitydiag-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># custom color scale for multiple prediction methods</span>
