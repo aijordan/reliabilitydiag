@@ -8,3 +8,5 @@
 ^README\.Rmd$
 ^README\.md$
 ^\.github$
+^NEWS$
+^NEWS\.md$
