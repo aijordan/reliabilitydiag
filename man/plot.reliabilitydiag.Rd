@@ -167,7 +167,7 @@ r <- reliabilitydiag(
 plot(r)
 
 # faceting using the internal grouping variable 'forecast'
-autoplot(r) +
+autoplot(r, params_histogram = list(colour = "black", fill = NA)) +
   ggplot2::facet_wrap("forecast")
 
 # custom color scale for multiple prediction methods
