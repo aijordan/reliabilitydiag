@@ -22,6 +22,7 @@ jobs:
           - {os: macOS-latest,   r: '4.1'}
           - {os: ubuntu-18.04,   r: 'devel'}
           - {os: ubuntu-18.04,   r: '4.1', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: '3.3'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
