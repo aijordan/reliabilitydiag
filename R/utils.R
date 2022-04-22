@@ -21,13 +21,12 @@ region_at <- function(regions, t) { # unused at the moment
 }
 
 bound_correction <- function(bound, x, CEP_est, position) {
-  switch(
-    position,
-    diagonal = bound,
-    estimate = ifelse(CEP_est %in% c(0, 1) & !(x %in% range(x)), NA, bound) %>%
-      stats::approx(x, y = ., xout = x) %>%
-      .$y
-  )
+  if (length(x) == 1L || position == "diagonal") {
+    return(bound)
+  }
+  ifelse(CEP_est %in% c(0, 1) & !(x %in% range(x)), NA, bound) %>%
+    stats::approx(x, y = ., xout = x) %>%
+    .$y
 }
 
 choose_breaks <- function(x, xtype) {

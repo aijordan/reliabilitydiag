@@ -128,18 +128,16 @@ resampling <- function(df_pav, df_bins, region.level, region.position, n.boot, .
     apply(1L, stats::quantile,
       probs = 0.5 + c(-0.5, 0.5) * region.level,
       na.rm = TRUE
-    ) %>%
-    apply(1L, bound_correction, simplify = FALSE,
-      x = regions$x,
-      CEP_est = regions$CEP_pav,
-      position = region.position
-    ) %>%
-    unlist() %>%
-    matrix(nrow = n.regions, ncol = 2L)
+    )
+  b_corr <- function(b) {
+    bound_correction(b, regions$x, regions$CEP_pav, region.position)
+  }
+  lbound <- b_corr(bounds[1L, ])
+  ubound <- b_corr(bounds[2L, ])
   tibble::tibble(
     x = regions$x,
-    lower = bounds[, 1L],
-    upper = bounds[, 2L],
+    lower = lbound,
+    upper = ubound,
     n = regions$n,
     method = paste0("resampling_", n.boot),
     level = region.level,
