@@ -22,6 +22,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -41,12 +43,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
@@ -55,7 +51,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/aijordan/reliabilitydiag/">
+  <a href="https://github.com/aijordan/reliabilitydiag/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -72,38 +68,38 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="reliabilitydiag" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#reliabilitydiag" class="anchor"></a>reliabilitydiag</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="reliabilitydiag">reliabilitydiag<a class="anchor" aria-label="anchor" href="#reliabilitydiag"></a>
+</h1></div>
 <!-- badges: start -->
 
-<div id="reliability-diagrams-using-isotonic-regression" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reliability-diagrams-using-isotonic-regression" class="anchor"></a>Reliability Diagrams Using Isotonic Regression</h2>
-<p>Checking the reliability of predictions via the CORP approach, which generates provably statistically <strong>C</strong>onsistent, <strong>O</strong>ptimally binned, and <strong>R</strong>eproducible reliability diagrams using the <strong>P</strong>ool-adjacent-violators algorithm. See Dimitriadis, Gneiting, Jordan (2020), available at <a href="https://doi.org/10.1073/pnas.2016191118">doi:10.1073/pnas.2016191118</a>.</p>
+<div class="section level2">
+<h2 id="reliability-diagrams-using-isotonic-regression">Reliability Diagrams Using Isotonic Regression<a class="anchor" aria-label="anchor" href="#reliability-diagrams-using-isotonic-regression"></a>
+</h2>
+<p>Checking the reliability of predictions via the CORP approach, which generates provably statistically <strong>C</strong>onsistent, <strong>O</strong>ptimally binned, and <strong>R</strong>eproducible reliability diagrams using the <strong>P</strong>ool-adjacent-violators algorithm. See Dimitriadis, Gneiting, Jordan (2020), available at <a href="https://doi.org/10.1073/pnas.2016191118" class="external-link">doi:10.1073/pnas.2016191118</a>.</p>
 <p>CORP is based on non-parametric isotonic regression and implemented via the Pool-adjacent-violators (PAV) algorithm - essentially, the CORP reliability diagram shows the graph of the PAV- (re)calibrated forecast probabilities. The CORP approach allows for uncertainty quantification via either resampling techniques or asymptotic theory, furnishes a new numerical measure of miscalibration, and provides a CORP based Brier score decomposition that generalizes to any proper scoring rule.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>reliabilitydiag is available on <a href="https://cran.r-project.org/package=reliabilitydiag">The Comprehensive R Archive Network (CRAN)</a>.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>reliabilitydiag is available on <a href="https://cran.r-project.org/package=reliabilitydiag" class="external-link">The Comprehensive R Archive Network (CRAN)</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"reliabilitydiag"</span><span class="op">)</span></code></pre></div>
-<div id="development-version" class="section level3">
-<h3 class="hasAnchor">
-<a href="#development-version" class="anchor"></a>Development version</h3>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"reliabilitydiag"</span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="development-version">Development version<a class="anchor" aria-label="anchor" href="#development-version"></a>
+</h3>
 <p>The most current version including bug fixes and new features is available from GitHub.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"aijordan/reliabilitydiag"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aijordan/reliabilitydiag/">reliabilitydiag</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"precip_Niamey_2016"</span>, package <span class="op">=</span> <span class="st">"reliabilitydiag"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aijordan/reliabilitydiag/" class="external-link">reliabilitydiag</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"precip_Niamey_2016"</span>, package <span class="op">=</span> <span class="st">"reliabilitydiag"</span><span class="op">)</span>
 
 <span class="va">X</span> <span class="op">&lt;-</span> <span class="va">precip_Niamey_2016</span><span class="op">$</span><span class="va">EMOS</span>
 <span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">precip_Niamey_2016</span><span class="op">$</span><span class="va">obs</span>
@@ -120,51 +116,56 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=reliabilitydiag">https://​cloud.r-project.org/​package=reliabilitydiag</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/aijordan/reliabilitydiag/">https://​github.com/​aijordan/​reliabilitydiag/​</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=reliabilitydiag" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/aijordan/reliabilitydiag/" class="external-link">Browse source code</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing reliabilitydiag</a></li>
+<li><a href="authors.html#citation">Citing reliabilitydiag</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Timo Dimitriadis <br><small class="roles"> Author </small>  </li>
 <li>Alexander I. Jordan <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=reliabilitydiag"><img src="https://www.r-pkg.org/badges/version/reliabilitydiag" alt="CRAN status"></a></li>
-<li><a href="https://github.com/aijordan/reliabilitydiag/actions"><img src="https://github.com/aijordan/reliabilitydiag/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://cran.r-project.org/package=reliabilitydiag" class="external-link"><img src="https://www.r-pkg.org/badges/version/reliabilitydiag" alt="CRAN status"></a></li>
+<li><a href="https://github.com/aijordan/reliabilitydiag/actions" class="external-link"><img src="https://github.com/aijordan/reliabilitydiag/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Timo Dimitriadis, Alexander I. Jordan.</p>
+  <p></p>
+<p>Developed by Timo Dimitriadis, Alexander I. Jordan.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -172,6 +173,8 @@
 
   
 
+
+  
 
   </body>
 </html>
