@@ -5,8 +5,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/reliabilitydiag)](https://cran.r-project.org/package=reliabilitydiag)
-[![R build
-status](https://github.com/aijordan/reliabilitydiag/workflows/R-CMD-check/badge.svg)](https://github.com/aijordan/reliabilitydiag/actions)
+[![R-CMD-check](https://github.com/aijordan/reliabilitydiag/workflows/R-CMD-check/badge.svg)](https://github.com/aijordan/reliabilitydiag/actions)
 <!-- badges: end -->
 
 ## Reliability Diagrams Using Isotonic Regression
