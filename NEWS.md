@@ -1,3 +1,11 @@
+# reliabilitydiag (development version)
+
+## Fixes
+
+* Fixed an inconsistency where the `"resampling"` method to calculate consistency/confidence regions required R 4.1, but DESCRIPTION stated R 3.3. The new formal requirement is R 3.5.
+
+* Fixed a bug in `bound_correction`, when "region.position == 'estimate'" and a prediction `x` has only one unique value.
+
 # reliabilitydiag (0.2.0)
 
 ## Features
