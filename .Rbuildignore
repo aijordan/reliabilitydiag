@@ -9,6 +9,5 @@
 ^README\.md$
 ^\.github$
 ^NEWS$
-^NEWS\.md$
 ^CRAN-RELEASE$
 ^cran-comments\.md$

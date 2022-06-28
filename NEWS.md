@@ -1,4 +1,4 @@
-# reliabilitydiag (0.2.1)
+# reliabilitydiag 0.2.1
 
 This is a small patch release that fixes two minor bugs.
 
@@ -7,7 +7,7 @@ This is a small patch release that fixes two minor bugs.
 * Fixed an inconsistency where the `"resampling"` method to calculate consistency/confidence regions required R 4.1, but DESCRIPTION stated R 3.3. The new consistent requirement is R 3.5.
 
 
-# reliabilitydiag (0.2.0)
+# reliabilitydiag 0.2.0
 
 ## Features
 
