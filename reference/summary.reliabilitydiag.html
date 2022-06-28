@@ -22,7 +22,7 @@ recalibrated version."><!-- mathjax --><script src="https://cdnjs.cloudflare.com
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reliabilitydiag</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -63,23 +63,30 @@ recalibrated version.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for reliabilitydiag</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span>, score <span class="op">=</span> <span class="st">"brier"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for reliabilitydiag</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span>, score <span class="op">=</span> <span class="st">"brier"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>an object inheriting from the class <code>'reliabilitydiag'</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
+
 <dt>score</dt>
 <dd><p>currently only "brier" or a vectorized scoring function,
 that is, <code>function(observation, prediction)</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>'summary.reliability'</code> object, which is also a
+    
+
+<p>A <code>'summary.reliability'</code> object, which is also a
 tibble (see <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code>) with columns:</p><table class="table table"><tr><td><code>forecast</code></td><td>the name of the prediction method.</td></tr><tr><td><code>mean_score</code></td><td>the mean score of the original
      forecast values.</td></tr><tr><td><code>miscalibration</code></td><td>a measure of miscalibration
      (<em>how reliable is the prediction method?</em>),
@@ -116,13 +123,13 @@ expectation functional.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"precip_Niamey_2016"</span>, package <span class="op">=</span> <span class="st">"reliabilitydiag"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reliabilitydiag.html">reliabilitydiag</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">precip_Niamey_2016</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Logistic"</span>, <span class="st">"EMOS"</span>, <span class="st">"ENS"</span>, <span class="st">"EPC"</span><span class="op">)</span><span class="op">]</span>,</span>
-<span class="r-in">  y <span class="op">=</span> <span class="va">precip_Niamey_2016</span><span class="op">$</span><span class="va">obs</span>,</span>
-<span class="r-in">  region.level <span class="op">=</span> <span class="cn">NA</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"precip_Niamey_2016"</span>, package <span class="op">=</span> <span class="st">"reliabilitydiag"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reliabilitydiag.html">reliabilitydiag</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">precip_Niamey_2016</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Logistic"</span>, <span class="st">"EMOS"</span>, <span class="st">"ENS"</span>, <span class="st">"EPC"</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>  y <span class="op">=</span> <span class="va">precip_Niamey_2016</span><span class="op">$</span><span class="va">obs</span>,</span></span>
+<span class="r-in"><span>  region.level <span class="op">=</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'brier' score decomposition (see also ?summary.reliabilitydiag)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   forecast mean_score miscalibration discrimination uncertainty</span>
@@ -131,7 +138,7 @@ expectation functional.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> EMOS          0.232         0.018<span style="text-decoration: underline;">3</span>         0.030<span style="text-decoration: underline;">5</span>       0.244</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> ENS           0.266         0.066<span style="text-decoration: underline;">1</span>         0.044<span style="text-decoration: underline;">1</span>       0.244</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> EPC           0.234         0.022<span style="text-decoration: underline;">3</span>         0.032<span style="text-decoration: underline;">3</span>       0.244</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">r</span>, score <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span><span class="op">)</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">y</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">r</span>, score <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span><span class="op">)</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">y</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'function(y, x) (x - y)^2' score decomposition (see also ?summary.reliabilitydiag)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   forecast mean_score miscalibration discrimination uncertainty</span>
@@ -140,7 +147,7 @@ expectation functional.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> EMOS          0.232         0.018<span style="text-decoration: underline;">3</span>         0.030<span style="text-decoration: underline;">5</span>       0.244</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> ENS           0.266         0.066<span style="text-decoration: underline;">1</span>         0.044<span style="text-decoration: underline;">1</span>       0.244</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> EPC           0.234         0.022<span style="text-decoration: underline;">3</span>         0.032<span style="text-decoration: underline;">3</span>       0.244</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -155,7 +162,7 @@ expectation functional.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

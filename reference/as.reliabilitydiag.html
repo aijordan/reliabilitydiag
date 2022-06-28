@@ -19,7 +19,7 @@ an object inheriting from the 'reliabilitydiag' class."><!-- mathjax --><script 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reliabilitydiag</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -57,42 +57,42 @@ an object inheriting from the <code>'reliabilitydiag'</code> class.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">as.reliabilitydiag</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">is.reliabilitydiag</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="co"># S3 method for reliabilitydiag</span>
-<span class="fu">as.reliabilitydiag</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, r <span class="op">=</span> <span class="cn">NULL</span>, tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">as.reliabilitydiag</span><span class="op">(</span>
-  <span class="va">x</span>,
-  y <span class="op">=</span> <span class="cn">NULL</span>,
-  r <span class="op">=</span> <span class="cn">NULL</span>,
-  xtype <span class="op">=</span> <span class="cn">NULL</span>,
-  xvalues <span class="op">=</span> <span class="cn">NULL</span>,
-  .name_repair <span class="op">=</span> <span class="st">"unique"</span>,
-  region.level <span class="op">=</span> <span class="fl">0.9</span>,
-  region.method <span class="op">=</span> <span class="cn">NULL</span>,
-  region.position <span class="op">=</span> <span class="st">"diagonal"</span>,
-  n.boot <span class="op">=</span> <span class="fl">100</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">as.reliabilitydiag</span><span class="op">(</span>
-  <span class="va">x</span>,
-  y <span class="op">=</span> <span class="cn">NULL</span>,
-  r <span class="op">=</span> <span class="cn">NULL</span>,
-  xtype <span class="op">=</span> <span class="cn">NULL</span>,
-  xvalues <span class="op">=</span> <span class="cn">NULL</span>,
-  .name_repair <span class="op">=</span> <span class="st">"unique"</span>,
-  region.level <span class="op">=</span> <span class="fl">0.9</span>,
-  region.method <span class="op">=</span> <span class="cn">NULL</span>,
-  region.position <span class="op">=</span> <span class="st">"diagonal"</span>,
-  n.boot <span class="op">=</span> <span class="fl">100</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as.reliabilitydiag</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is.reliabilitydiag</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for reliabilitydiag</span></span>
+<span><span class="fu">as.reliabilitydiag</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, r <span class="op">=</span> <span class="cn">NULL</span>, tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">as.reliabilitydiag</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  r <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xtype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xvalues <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .name_repair <span class="op">=</span> <span class="st">"unique"</span>,</span>
+<span>  region.level <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  region.method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  region.position <span class="op">=</span> <span class="st">"diagonal"</span>,</span>
+<span>  n.boot <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">as.reliabilitydiag</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  r <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xtype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xvalues <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .name_repair <span class="op">=</span> <span class="st">"unique"</span>,</span>
+<span>  region.level <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  region.method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  region.position <span class="op">=</span> <span class="st">"diagonal"</span>,</span>
+<span>  n.boot <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,46 +100,72 @@ an object inheriting from the <code>'reliabilitydiag'</code> class.</p>
     <dl><dt>x</dt>
 <dd><p>an <span style="R">R</span> object with probability predictions taking values in [0, 1];
 usually a numeric vector or a list/data.frame containing numeric vectors.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
+
+
 <dt>y</dt>
 <dd><p>a numeric vector of binary response values in {0, 1} to be
 predicted.</p></dd>
+
+
 <dt>r</dt>
 <dd><p>an object inheriting from the class <code>'reliabilitydiag'</code>;
 alternative to <code>y</code>.</p></dd>
+
+
 <dt>tol</dt>
 <dd><p>accuracy when comparing <code>y</code> in <code>'reliabilitydiag'</code>
 objects.</p></dd>
+
+
 <dt>xtype</dt>
 <dd><p>a string specifying whether the prediction values should be
 treated as <code>"continuous"</code> or <code>"discrete"</code>.</p></dd>
+
+
 <dt>xvalues</dt>
 <dd><p>a numeric vector of possible prediction values;
 values in <code>x</code> are rounded to the nearest value in <code>xvalues</code> and
 <code>xtype</code> is set to <code>"discrete"</code>.</p></dd>
+
+
 <dt>.name_repair</dt>
 <dd><p>This argument is passed on as <code>repair</code> to
 <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vec_as_names</a></code>. See there for more details.</p></dd>
+
+
 <dt>region.level</dt>
 <dd><p>a value in (0, 1) specifying the level at which
 consistency or confidence regions are calculated.</p></dd>
+
+
 <dt>region.method</dt>
 <dd><p>a string specifying whether <code>"resampling"</code>,
 <code>"continuous_asymptotics"</code>, or <code>"discrete_asymptotics"</code> are used
 to calculate consistency/confidence regions.</p></dd>
+
+
 <dt>region.position</dt>
 <dd><p>a string specifying whether consistency regions
 around the <code>"diagonal"</code> or confidence regions around the
 <code>"estimate"</code> are calculated.</p></dd>
+
+
 <dt>n.boot</dt>
 <dd><p>the number of bootstrap samples when
 <code>region.method == "resampling"</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>as.reliabilitydiag</code> returns a <code>'reliabilitydiag'</code> object.
-<code>is.reliabilitydiag</code> returns <code>TRUE</code> if its argument is a
+    
+
+<p><code>as.reliabilitydiag</code> returns a <code>'reliabilitydiag'</code> object.</p>
+<p></p>
+<p><code>is.reliabilitydiag</code> returns <code>TRUE</code> if its argument is a
  reliability diagram, that is, has <code>"reliabilitydiag"</code> among its classes,
  and <code>FALSE</code> otherwise.</p>
     </div>
@@ -160,7 +186,7 @@ around the <code>"diagonal"</code> or confidence regions around the
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
