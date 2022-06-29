@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reliabilitydiag</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.1.9000</span>
       </span>
     </div>
 
@@ -61,12 +61,17 @@
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>an object inheriting from the class <code>'reliabilitydiag'</code>.</p></dd>
+
+
 <dt>i</dt>
 <dd><p>index specifying which elements to extract.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an object inheriting from the class <code>'reliabilitydiag'</code>.</p>
+    
+
+<p>an object inheriting from the class <code>'reliabilitydiag'</code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -75,29 +80,29 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"precip_Niamey_2016"</span>, package <span class="op">=</span> <span class="st">"reliabilitydiag"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reliabilitydiag.html">reliabilitydiag</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">precip_Niamey_2016</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Logistic"</span>, <span class="st">"EMOS"</span><span class="op">)</span><span class="op">]</span>,</span>
-<span class="r-in">  y <span class="op">=</span> <span class="va">precip_Niamey_2016</span><span class="op">$</span><span class="va">obs</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"precip_Niamey_2016"</span>, package <span class="op">=</span> <span class="st">"reliabilitydiag"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reliabilitydiag.html">reliabilitydiag</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">precip_Niamey_2016</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Logistic"</span>, <span class="st">"EMOS"</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>  y <span class="op">=</span> <span class="va">precip_Niamey_2016</span><span class="op">$</span><span class="va">obs</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
-<span class="r-in"><span class="va">r</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="va">r</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-plt img"><img src="sub-.reliabilitydiag-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'brier' score decomposition (see also ?summary.reliabilitydiag)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   forecast mean_score miscalibration discrimination uncertainty</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Logistic      0.206         0.017<span style="text-decoration: underline;">1</span>         0.055<span style="text-decoration: underline;">5</span>       0.244</span>
-<span class="r-in"><span class="va">r</span><span class="op">[</span><span class="st">"EMOS"</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="va">r</span><span class="op">[</span><span class="st">"EMOS"</span><span class="op">]</span></span></span>
 <span class="r-plt img"><img src="sub-.reliabilitydiag-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'brier' score decomposition (see also ?summary.reliabilitydiag)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   forecast mean_score miscalibration discrimination uncertainty</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> EMOS          0.232         0.018<span style="text-decoration: underline;">3</span>         0.030<span style="text-decoration: underline;">5</span>       0.244</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -112,7 +117,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reliabilitydiag</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.1.9000</span>
       </span>
     </div>
 
@@ -47,13 +47,23 @@
       <small>Source: <a href="https://github.com/aijordan/reliabilitydiag/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2"><h2 class="page-header" data-toc-text="development version" id="reliabilitydiag-development-version">reliabilitydiag (development version)<a class="anchor" aria-label="anchor" href="#reliabilitydiag-development-version"></a></h2></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="reliabilitydiag-development-version">reliabilitydiag (development version)<a class="anchor" aria-label="anchor" href="#reliabilitydiag-development-version"></a></h2>
-<div class="section level3">
-<h3 id="fixes-development-version">Fixes<a class="anchor" aria-label="anchor" href="#fixes-development-version"></a></h3>
-<ul><li><p>Fixed an inconsistency where the <code>"resampling"</code> method to calculate consistency/confidence regions required R 4.1, but DESCRIPTION stated R 3.3. The new formal requirement is R 3.5.</p></li>
-<li><p>Fixed a bug in <code>bound_correction</code>, when “region.position == ‘estimate’” and a prediction <code>x</code> has only one unique value.</p></li>
+<h2 class="page-header" data-toc-text="0.2.1" id="reliabilitydiag-021">reliabilitydiag 0.2.1<small>2022-06-28</small><a class="anchor" aria-label="anchor" href="#reliabilitydiag-021"></a></h2>
+<p>This is a small patch release that fixes two minor bugs.</p>
+<ul><li><p>Fixed a bug in <code>bound_correction</code> that occurred when “region.position == ‘estimate’” and a prediction <code>x</code> has only one unique value.</p></li>
+<li><p>Fixed an inconsistency where the <code>"resampling"</code> method to calculate consistency/confidence regions required R 4.1, but DESCRIPTION stated R 3.3. The new consistent requirement is R 3.5.</p></li>
 </ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.0" id="reliabilitydiag-020">reliabilitydiag 0.2.0<small>2021-11-02</small><a class="anchor" aria-label="anchor" href="#reliabilitydiag-020"></a></h2>
+<div class="section level3">
+<h3 id="features-0-2-0">Features<a class="anchor" aria-label="anchor" href="#features-0-2-0"></a></h3>
+<ul><li>Explicit support for <code>ggplot2::facet_*()</code> via the internal variable <code>forecast</code> (<a href="https://github.com/aijordan/reliabilitydiag/issues/2" class="external-link">#2</a>)</li>
+<li>If installed, <code><a href="https://rdrr.io/pkg/monotone/man/monotone.html" class="external-link">monotone::monotone()</a></code> is used for isotonic regression instead of <code><a href="https://rdrr.io/r/stats/isoreg.html" class="external-link">stats::isoreg()</a></code> (<a href="https://github.com/aijordan/reliabilitydiag/issues/3" class="external-link">#3</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixes-0-2-0">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-2-0"></a></h3>
+<ul><li>Fixed a bug where the <code>"resampling"</code> method to calculate consistency/confidence regions could not be calculated for a constant forecast.</li></ul></div>
 </div>
   </div>
 
@@ -69,7 +79,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
